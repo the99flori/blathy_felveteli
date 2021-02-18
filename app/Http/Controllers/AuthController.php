@@ -24,7 +24,7 @@ class AuthController extends Controller
 
         dd($oauth);
 
-        if(User::where('email', $oauth->email->count() == 1){
+        /*if(User::where('email', $oauth->email->count() == 1){
 
             $user = User::where('email', $oauth->email->first());
 
@@ -36,6 +36,6 @@ class AuthController extends Controller
 
                 $user->save();
             }
-        }
+        }*/
     }
 }

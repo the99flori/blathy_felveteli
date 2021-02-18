@@ -36,9 +36,9 @@ class TokenValidate
                 $response = json_decode($json->getBody(), true);
 
                 // Store the new values
-                $user->accessToken = $response->access_token;
-                $user->refreshToken = $response->refresh_token;
-                $user->tokenExpires = Carbon::createFromTimestamp($response->expires_on, 'Europe/Budapest')->toDateTimeString();
+                $user->accessToken = $response['access_token'];
+                $user->refreshToken = $response['refresh_token'];
+                $user->tokenExpires = Carbon::createFromTimestamp($response['expires_on'], 'Europe/Budapest')->toDateTimeString();
 
                 $user->save();
 
