@@ -11,13 +11,13 @@ class TokenValidate
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
+     * @param Request $request
+     * @param  Closure  $next
      * @return mixed
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::check() && ($user = Auth::user())->tokenExpires <= time() + 300) {
+        if (Auth::check() && Auth::user()->tokenExpires <= time() + 300) {
             // Check User and Token is expired (or very close to it /5 min/)
 
             $client = new GuzzleHttp\Client();
@@ -27,7 +27,7 @@ class TokenValidate
                         'grant_type' => 'refresh_token',
                         'client_id' => config('services.azure.client_id'),
                         'client_secret' => config('services.azure.client_secret'),
-                        'refresh_token' => $user->refreshToken,
+                        'refresh_token' => Auth::user()->refreshToken,
                     ]
                 ]);
 
@@ -36,11 +36,11 @@ class TokenValidate
                 $response = json_decode($json->getBody(), true);
 
                 // Store the new values
-                $user->accessToken = $response['access_token'];
-                $user->refreshToken = $response['refresh_token'];
-                $user->tokenExpires = Carbon::createFromTimestamp($response['expires_on'], 'Europe/Budapest')->toDateTimeString();
+                Auth::user()->accessToken = $response['access_token'];
+                Auth::user()->refreshToken = $response['refresh_token'];
+                Auth::user()->tokenExpires = Carbon::createFromTimestamp($response['expires_on'], 'Europe/Budapest')->toDateTimeString();
 
-                $user->save();
+                Auth::user()->save();
 
             }
 

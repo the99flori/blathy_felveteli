@@ -9,7 +9,6 @@ use Laravel\Socialite\Facades\Socialite;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\App;
-use GuzzleHttp;
 
 class AuthController extends Controller
 {
@@ -22,20 +21,19 @@ class AuthController extends Controller
     public function callback(){
         $oauth = Socialite::driver('azure')->user();
 
-        dd($oauth);
+        //dd($oauth);
 
-        /*if(User::where('email', $oauth->email->count() == 1){
+        if(User::where('email', $oauth->email)->count() == 1){
 
-            $user = User::where('email', $oauth->email->first());
+            $user = User::where('email', $oauth->email)->first();
+            $user->name = $oauth->name;
+            $user->accessToken = $oauth->accessTokenResponseBody['access_token'];
+            $user->refreshToken = $oauth->accessTokenResponseBody['refresh_token'];
+            $user->tokenExpires = Carbon::createFromTimestamp($oauth->accessTokenResponseBody['expires_on'], 'Europe/Budapest')->toDateTimeString();
 
-            if($user->name == ""){
-                $user->name = $ouath->name;
-                $user->accessToken = $oauth->accessTokenResponseBody['access_token'];
-                $user->refreshToken = $oauth->accessTokenResponseBody['refresh_token'];
-                $user->tokenExpires = Carbon::createFromTimestamp($oauth->accessTokenResponseBody['expires_on'], 'Europe/Budapest')->toDateTimeString();
-
-                $user->save();
-            }
-        }*/
+            $user->save();
+            echo 'FASZA';
+        }
+        else abort(403);
     }
 }

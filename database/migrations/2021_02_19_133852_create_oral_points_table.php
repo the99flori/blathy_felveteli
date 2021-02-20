@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUsersTable extends Migration
+class CreateOralPointsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,14 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('oral_points', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->nullable();
-            $table->string('email')->unique();
-
-            $table->text('accessToken')->nullable();
-            $table->text('refreshToken')->nullable();
-            $table->timestamp('tokenExpires', $precision = 0)->nullable();
+            $table->foreignId('student_id');
+            $table->tinyinteger('etiq');
+            $table->tinyinteger('intro');
+            $table->tinyinteger('chat');
+            $table->tinyinteger('task');
+            $table->tinyinteger('it');
 
             $table->timestamps();
         });
@@ -33,6 +33,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('oral_points');
     }
 }
