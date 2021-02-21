@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use \App\Http\Controllers\StudentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,9 +15,9 @@ use App\Http\Controllers\AuthController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Route::get('/login', [AuthController::class, 'oauth'])->name('login');
 Route::get('/callback', [AuthController::class, 'callback'])->name('callback');
+
+Route::get('/schedule', [StudentController::class, 'login']);
+Route::post('/schedule', [StudentController::class, 'index']);
+Route::get('/school', [StudentController::class, 'getSchoolData']);
