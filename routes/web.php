@@ -28,6 +28,6 @@ Route::get('/logout', function (){
 });
 Route::get('/callback', [AuthController::class, 'callback'])->name('callback');
 
-Route::get('/schedule', [StudentController::class, 'login']);
-Route::post('/schedule', [StudentController::class, 'index']);
+Route::get('/schedule', [StudentController::class, 'login'])->name('schedule');
+Route::post('/schedule', [StudentController::class, 'index'])->name('schedule.index');
 Route::get('/school', [StudentController::class, 'getSchoolData'])->middleware('auth');;

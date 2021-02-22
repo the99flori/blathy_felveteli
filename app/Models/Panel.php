@@ -16,7 +16,7 @@ class Panel extends Model
 
     public function meetings()
     {
-        return $this->hasMany(meeting::class);
+        return $this->hasMany(Meeting::class);
     }
 
 }

@@ -16,7 +16,7 @@ class Student extends Model
 
     public function meeting()
     {
-        return $this->belongsTo(meeting::class, 'id', 'student_id');
+        return $this->belongsTo(Meeting::class, 'id', 'student_id');
     }
 
     public function primaryPoint()

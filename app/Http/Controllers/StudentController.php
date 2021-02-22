@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\getScheduleRequest;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 
 use App\Models\Student;
-use App\Models\Meeting;
 use App\Models\primarySchool;
 
 class StudentController extends Controller
@@ -14,19 +14,24 @@ class StudentController extends Controller
 
     public function login(){
 
-        return '';
+        return view('schedule.login');
 
     }
 
-    public function index(Request $request){
-        $meeting = Meeting::select('*')
-            ->join('students', 'students.id', '=', 'meetings.student_id')
-            ->where('students.eduId', $request->input('eduId'))
-            ->where('students.sign', $request->input('sign'))
-            ->get();
+    public function index(getScheduleRequest $request){
 
+        ($request->input('sign') == "") ? $sign = NULL : $sign = trim($request->input('sign'));
 
-        return view('schedule.info');
+        $student = Student::where('eduId', $request->input('eduId'))
+            ->where('born', $request->input('born'))
+            ->where('sign', $sign)
+            ->first();
+
+        if($student == NULL) return redirect()->route('schedule');
+
+        return view('schedule.index', [
+            'student' => $student,
+        ]);
     }
 
     public function getSchoolData(){
@@ -55,8 +60,6 @@ class StudentController extends Controller
                     'name' => trim($pieces[0]),
                     'address' => trim($pieces[1]),
                 ]);
-
-            //dd(trim($pieces[0]));
 
         }
 
