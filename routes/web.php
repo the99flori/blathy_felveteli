@@ -24,7 +24,7 @@ Route::get('/', function(){
 Route::get('/login', [AuthController::class, 'oauth'])->name('login');
 Route::get('/logout', function (){
     Auth::logout();
-    return 'KILÉPVE!';
+    return 'KILÉPVE';
 });
 Route::get('/callback', [AuthController::class, 'callback'])->name('callback');
 
