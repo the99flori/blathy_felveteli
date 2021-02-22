@@ -15,7 +15,7 @@ class CreatePrimarySchoolsTable extends Migration
     {
         Schema::create('primary_schools', function (Blueprint $table) {
             $table->id();
-            $table->tinyInteger('om');
+            $table->string('om', 10)->unique();
             $table->string('name');
             $table->string('address');
             $table->timestamps();

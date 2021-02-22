@@ -32,7 +32,10 @@ class AuthController extends Controller
             $user->tokenExpires = Carbon::createFromTimestamp($oauth->accessTokenResponseBody['expires_on'], 'Europe/Budapest')->toDateTimeString();
 
             $user->save();
-            echo 'FASZA';
+
+            Auth::loginUsingId($user->id);
+
+            echo Auth::user()->name;
         }
         else abort(403);
     }

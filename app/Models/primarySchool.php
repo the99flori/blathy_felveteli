@@ -9,5 +9,5 @@ class primarySchool extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['om'];
+    protected $fillable = ['om', 'name', 'address'];
 }

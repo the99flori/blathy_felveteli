@@ -51,10 +51,12 @@ class StudentController extends Controller
             primarySchool::firstOrCreate([
                 'om' => $om->primaryOM,
             ],
-            [
-                'name' => trim($pieces[0]),
-                'address' => trim($pieces[1]),
-            ]);
+                [
+                    'name' => trim($pieces[0]),
+                    'address' => trim($pieces[1]),
+                ]);
+
+            //dd(trim($pieces[0]));
 
         }
 
