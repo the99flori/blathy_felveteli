@@ -10,4 +10,10 @@ class primarySchool extends Model
     use HasFactory;
 
     protected $fillable = ['om', 'name', 'address'];
+
+    public function students()
+    {
+        return $this->hasMany(Student::class, 'primaryOM', 'om');
+    }
+
 }

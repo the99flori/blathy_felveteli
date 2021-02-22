@@ -14,4 +14,9 @@ class Panel extends Model
         return $this->belongsToMany(User::class);
     }
 
+    public function meetings()
+    {
+        return $this->hasMany(meeting::class);
+    }
+
 }
