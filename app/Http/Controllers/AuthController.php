@@ -19,7 +19,7 @@ class AuthController extends Controller
     }
 
     public function callback(){
-        $oauth = Socialite::driver('azure')->user();
+        $oauth = Socialite::driver('azure')->stateless()->user();
 
         //dd($oauth);
 
@@ -35,7 +35,7 @@ class AuthController extends Controller
 
             Auth::loginUsingId($user->id);
 
-            echo Auth::user()->name;
+            return redirect('/');
         }
         else abort(403);
     }

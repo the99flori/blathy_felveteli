@@ -17,17 +17,19 @@ use \App\Http\Controllers\StudentController;
 */
 
 Route::get('/', function(){
-    if (Auth::guest()) return redirect('/login');
-    else return redirect('/school');
+    return redirect('/schedule');
 });
 
 Route::get('/login', [AuthController::class, 'oauth'])->name('login');
 Route::get('/logout', function (){
     Auth::logout();
-    return 'KILÉPVE';
+    return 'KILÉPVE!';
 });
 Route::get('/callback', [AuthController::class, 'callback'])->name('callback');
 
 Route::get('/schedule', [StudentController::class, 'login'])->name('schedule');
 Route::post('/schedule', [StudentController::class, 'index'])->name('schedule.index');
-Route::get('/school', [StudentController::class, 'getSchoolData'])->middleware('auth');;
+Route::get('/school', [StudentController::class, 'getSchoolData'])->middleware('auth');
+
+Route::get('/import', [StudentController::class, 'importView'])->middleware('auth');
+Route::post('/import', [StudentController::class, 'import'])->name('import')->middleware('auth');

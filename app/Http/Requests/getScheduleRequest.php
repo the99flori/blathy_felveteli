@@ -24,7 +24,7 @@ class getScheduleRequest extends FormRequest
     public function rules()
     {
         return [
-            'eduId' => 'required|digits:11',
+            'eduId' => 'required|numeric|digits:11',
             'born' => 'required|date',
             'sign' => 'nullable',
         ];
@@ -34,8 +34,8 @@ class getScheduleRequest extends FormRequest
     {
         return [
             'eduId.required' => 'Kötelező kitölteni!',
-            'eduId.digits' => 'Csak számokat tartalmazhat!',
-            'eduId.digits:11' => '11 számjegyből áll és 7-sel kezdődik!',
+            'eduId.numeric' => 'Csak számokat tartalmazhat!',
+            'eduId.digits' => '11 számjegyből kell állnia!',
             'born.required' => 'Kötelező kitölteni!',
             'born.date' => 'Dátum kell, hogy legyen!',
         ];

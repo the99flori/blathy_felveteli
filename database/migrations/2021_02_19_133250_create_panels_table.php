@@ -15,8 +15,8 @@ class CreatePanelsTable extends Migration
     {
         Schema::create('panels', function (Blueprint $table) {
             $table->id();
-            $table->string('note');
-            $table->string('room',3)->nullable();
+            $table->string('note')->nullable();
+            $table->string('room',10);
             $table->text('link')->nullable();
 
             $table->timestamps();

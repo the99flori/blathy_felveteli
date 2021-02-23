@@ -6,6 +6,9 @@ use App\Http\Requests\getScheduleRequest;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\StudentsImport;
+
 use App\Models\Student;
 use App\Models\primarySchool;
 
@@ -19,15 +22,17 @@ class StudentController extends Controller
     }
 
     public function index(getScheduleRequest $request){
-
-        ($request->input('sign') == "") ? $sign = NULL : $sign = trim($request->input('sign'));
+        if($request->input('sign') != NULL)
+            $sign = strtoupper($request->input('sign'));
+        else
+            $sign = NULL;
 
         $student = Student::where('eduId', $request->input('eduId'))
             ->where('born', $request->input('born'))
             ->where('sign', $sign)
             ->first();
 
-        if($student == NULL) return redirect()->route('schedule');
+        if($student == NULL) return redirect()->route('schedule')->withErrors(['msg' => 'Adott paraméterekkel nem található tanuló!']);
 
         return view('schedule.index', [
             'student' => $student,
@@ -49,8 +54,7 @@ class StudentController extends Controller
         foreach (Student::select('primaryOM')->get() as $om){
             $response = $client->request('GET', 'https://www.oktatas.hu/kozneveles/intezmenykereso/koznevelesi_intezmenykereso/!DARI_Intezmenykereso/oh.php?id=kir_int_mod&param='.$om->primaryOM);
 
-            $fullstring = $response->getBody()->getContents();
-            $parsed = get_string_between($fullstring, 'A(z)', ') köznevelési');
+            $parsed = get_string_between($response->getBody()->getContents(), 'A(z)', ') köznevelési');
             $pieces = explode("(", $parsed);
 
             primarySchool::firstOrCreate([
@@ -64,6 +68,18 @@ class StudentController extends Controller
         }
 
 
+    }
+
+    public function importView()
+    {
+        return view('import');
+    }
+
+    public function import()
+    {
+        Excel::import(new StudentsImport,request()->file('file'));
+
+        return redirect()->back();
     }
 
 }
