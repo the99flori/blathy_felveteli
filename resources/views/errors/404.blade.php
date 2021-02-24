@@ -19,7 +19,7 @@
         <p class="m-0">404</p>
     </div>
     <p class="text-dark mb-5 lead">Az oldal nem található</p>
-    <p class="text-black-50 mb-0" style="padding-bottom: 10px;">Ha te megtaláltad, kérjük rakd vissza a helyére, köszönjük! - IT<br></p><a href="/">← Vissza az elejére</a>
+    <p class="text-black-50 mb-0" style="padding-bottom: 10px;">Ha te megtaláltad, kérjük rakd vissza a helyére, köszönjük! - BOT_IT<br></p><a href="/">← Vissza az elejére</a>
 </div>
 <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
 <script src="{{ asset('assets/bootstrap/js/bootstrap.min.js') }}"></script>

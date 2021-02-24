@@ -11,6 +11,7 @@ use App\Imports\StudentsImport;
 
 use App\Models\Student;
 use App\Models\primarySchool;
+use App\Models\StudentLog;
 
 class StudentController extends Controller
 {
@@ -33,6 +34,12 @@ class StudentController extends Controller
             ->first();
 
         if($student == NULL) return redirect()->route('schedule')->withErrors(['msg' => 'Adott paraméterekkel nem található tanuló!']);
+
+        StudentLog::create([
+            'eduid' => $student->eduId,
+            'ip' => $request->ip(),
+            'note' => $request->userAgent(),
+        ]);
 
         return view('schedule.index', [
             'student' => $student,

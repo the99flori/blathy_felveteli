@@ -24,8 +24,8 @@
                             <div class="flex-grow-1 bg-login-image" style="background-image: url({{ asset('assets/img/art.jpg') }});"></div>
                         </div>
                         <div class="col-lg-6">
-                            <div class="p-5">
-                                <div class="text-center"><img src="{{ asset('assets/img/logos/blathy_felirat.png') }}" style="width: 70%;">
+                            <div class="p-0">
+                                <div class="text-center p-5"><img src="{{ asset('assets/img/logos/blathy_felirat.png') }}" style="width: 70%;">
                                     <h4 class="text-dark mb-4">Szóbeli beosztás</h4>
 
                                     @error('msg')
@@ -57,9 +57,47 @@
                                     <h5 class="text-dark">Adminisztrációs felület</h5><a href="{{ route('login') }}" class="btn btn-dark btn-block text-white" role="button"><i class="fab fa-microsoft"></i>&nbsp; Belépés Microsoft 365 fiókkal</a>
                                 </div>
                             </div>
+                            <a href="#"><i class="fas fa-question-circle float-right" style="padding-bottom: 5px;padding-right: 5px;" data-toggle="modal" data-target="#help"></i></a>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" role="dialog" tabindex="-1" id="help">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Segítség</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+            </div>
+            <div class="modal-body">
+                <p>Lekérdezéshez a következő adatokra van szükség:</p>
+                <div class="table-responsive table-borderless">
+                    <table class="table table-bordered">
+                        <thead style="border-bottom-style: solid;">
+                        <tr>
+                            <th style="border-right-width: 1px;border-right-style: solid;width: 25%;">Mezőnév</th>
+                            <th>Várt adat</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr style="border-bottom-width: 1px;border-bottom-style: solid;">
+                            <th style="border-right-width: 1px;border-right-style: solid;">Oktatási azonosító</th>
+                            <td>11 számjegyből áll, 7-tel kezdődik (megtalálható a diákigazolványon)</td>
+                        </tr>
+                        <tr style="border-bottom-width: 1px;border-bottom-style: solid;">
+                            <th style="border-right-width: 1px;border-right-style: solid;">Születési dátum</th>
+                            <td>A tanuló születési ideje</td>
+                        </tr>
+                        <tr>
+                            <th style="border-right-width: 1px;border-right-style: solid;">Jelige</th>
+                            <td>Az jelentkezési lapon lehetett megadni, amennyiben nem adott meg akkor hagyja üresen</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="text-center">Amennyiben további segítségre van szüksége, írjon a&nbsp;<a href="mailto:rendszergazda@blathy-bp.sulinet.hu">rendszergazda@blathy-bp.sulinet.hu</a>&nbsp;címre.<br></p>
             </div>
         </div>
     </div>

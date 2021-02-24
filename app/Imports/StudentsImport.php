@@ -3,6 +3,7 @@
 namespace App\Imports;
 
 use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithCustomCsvSettings;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
 use App\Models\Student;
@@ -11,13 +12,21 @@ use App\Models\centralExam;
 use App\Models\Panel;
 use App\Models\Meeting;
 
-class StudentsImport implements ToModel, WithHeadingRow
+class StudentsImport implements ToModel, WithHeadingRow, WithCustomCsvSettings
+
 {
     /**
     * @param array $row
     *
     * @return \Illuminate\Database\Eloquent\Model|null
     */
+    public function getCsvSettings(): array
+    {
+        return [
+            'delimiter' => ";"
+        ];
+    }
+
     public function model(array $row)
     {
         $student = Student::create([
@@ -53,15 +62,24 @@ class StudentsImport implements ToModel, WithHeadingRow
             'math' => $row['math_exam'],
         ]);
 
-        $panel = Panel::firstOrCreate([
+        if ($row['room'] != NULL){
+            $panel = Panel::firstOrCreate([
                 'room' => $row['room'],
             ]);
 
+            $panelid = $panel->id;
+        }
+        else{
+            $panelid = NULL;
+        }
+
         Meeting::create([
             'student_id' => $student->id,
-            'panel_id' => $panel->id,
+            'panel_id' => $panelid,
             'datetime' => $row['datetime'],
+            'note' => $row['note'],
         ]);
+
 
         return $student;
     }

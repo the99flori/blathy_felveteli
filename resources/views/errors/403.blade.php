@@ -19,7 +19,7 @@
         <p class="m-0">403</p>
     </div>
     <p class="text-dark mb-5 lead">Hozzáférés megtagadva</p>
-    <p class="text-black-50 mb-0" style="padding-bottom: 10px;">Tilosban jársz, inkább fordulj vissza, amíg tudsz! - IT<br></p><a href="/">← Vissza az elejére</a>
+    <p class="text-black-50 mb-0" style="padding-bottom: 10px;">Tilosban jársz, inkább fordulj vissza, amíg tudsz! - BOT_IT<br></p><a href="/">← Vissza az elejére</a>
 </div>
 <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
 <script src="{{ asset('assets/bootstrap/js/bootstrap.min.js') }}"></script>
