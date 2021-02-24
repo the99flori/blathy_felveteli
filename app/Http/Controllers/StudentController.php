@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\getScheduleRequest;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\StudentsImport;
+
 use App\Models\Student;
-use App\Models\Meeting;
 use App\Models\primarySchool;
 
 class StudentController extends Controller
@@ -14,19 +17,26 @@ class StudentController extends Controller
 
     public function login(){
 
-        return '';
+        return view('schedule.login');
 
     }
 
-    public function index(Request $request){
-        $meeting = Meeting::select('*')
-            ->join('students', 'students.id', '=', 'meetings.student_id')
-            ->where('students.eduId', $request->input('eduId'))
-            ->where('students.sign', $request->input('sign'))
-            ->get();
+    public function index(getScheduleRequest $request){
+        if($request->input('sign') != NULL)
+            $sign = strtoupper($request->input('sign'));
+        else
+            $sign = NULL;
 
+        $student = Student::where('eduId', $request->input('eduId'))
+            ->where('born', $request->input('born'))
+            ->where('sign', $sign)
+            ->first();
 
-        return view('schedule.info');
+        if($student == NULL) return redirect()->route('schedule')->withErrors(['msg' => 'Adott paraméterekkel nem található tanuló!']);
+
+        return view('schedule.index', [
+            'student' => $student,
+        ]);
     }
 
     public function getSchoolData(){
@@ -44,8 +54,7 @@ class StudentController extends Controller
         foreach (Student::select('primaryOM')->get() as $om){
             $response = $client->request('GET', 'https://www.oktatas.hu/kozneveles/intezmenykereso/koznevelesi_intezmenykereso/!DARI_Intezmenykereso/oh.php?id=kir_int_mod&param='.$om->primaryOM);
 
-            $fullstring = $response->getBody()->getContents();
-            $parsed = get_string_between($fullstring, 'A(z)', ') köznevelési');
+            $parsed = get_string_between($response->getBody()->getContents(), 'A(z)', ') köznevelési');
             $pieces = explode("(", $parsed);
 
             primarySchool::firstOrCreate([
@@ -56,11 +65,21 @@ class StudentController extends Controller
                     'address' => trim($pieces[1]),
                 ]);
 
-            //dd(trim($pieces[0]));
-
         }
 
 
+    }
+
+    public function importView()
+    {
+        return view('import');
+    }
+
+    public function import()
+    {
+        Excel::import(new StudentsImport,request()->file('file'));
+
+        return redirect()->back();
     }
 
 }

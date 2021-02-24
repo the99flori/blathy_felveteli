@@ -19,8 +19,8 @@ class CreateStudentsTable extends Migration
             $table->string('eduId', 11)->unique();
             $table->string('primaryOM', 10);
             $table->date('born');
-            $table->string('email')->unique();
-            $table->string('sign');
+            $table->string('email')->nullable();
+            $table->string('sign')->nullable();
             $table->boolean('n23')->default(false);
             $table->boolean('n25')->default(false);
 
