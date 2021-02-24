@@ -92,7 +92,7 @@
                         </tr>
                         <tr>
                             <th style="border-right-width: 1px;border-right-style: solid;">Jelige</th>
-                            <td>Az jelentkezési lapon lehetett megadni, amennyiben nem adott meg akkor hagyja üresen</td>
+                            <td>A jelentkezési lapon lehetett megadni, amennyiben nem adott meg, akkor hagyja üresen</td>
                         </tr>
                         </tbody>
                     </table>
