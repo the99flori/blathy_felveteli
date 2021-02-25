@@ -1,5 +1,4 @@
-<p align="center"><a href="http://blathy-bp.sulinet.hu" target="_blank"><img src="https://raw.githubusercontent.com/the99flori/blathy_felveteli/main/public/assets/img/logos/blathy_felirat.png" width="400"></a></p>
-
+![Bláthy](public/assets/img/logos/blathy_felirat.png)
 # Egységes középiskolai felvételi rendszer
 A rendszer célja, a teljes középiskolai felvételi eljárás egy helyen kezelhetősége, minnél kevesebb papírmunkával és hibalehetőséggel, illetve az eredményközlések hatékonyságának növelése.
 ## Funkciók
