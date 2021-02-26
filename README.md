@@ -12,3 +12,4 @@ A rendszer célja, a teljes középiskolai felvételi eljárás egy helyen kezel
 - Szóbeli eredmények rögzítése
 - Tanulói felvételi életút követése
 - Eredményközlő rendszer
+- Szóbeli időpontok automatikus beosztása, új időpont kérése
