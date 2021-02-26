@@ -34,6 +34,12 @@
                                         <span style="font-size: 13px;">{{ $message }}</span>
                                     </div>
                                     @enderror
+				    @if(false)
+   				    <div class="alert alert-warning" role="alert">
+                                        <span style="font-size: 13px;">A jelentkezések feldolgozás alatt állnak, várhatóan <b>2021.02.25 délutántól</b> válnak elérhetővé! </span>
+                                    </div>
+				    @endif
+
 
                                     <form class="user" method="post" action="{{ route('schedule.index') }}">
                                         @csrf
