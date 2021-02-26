@@ -9,9 +9,25 @@ use Laravel\Socialite\Facades\Socialite;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\App;
+use App\Http\Requests\LocalLoginRequest;
 
 class AuthController extends Controller
 {
+
+    public function login(){
+        return view('auth.login');
+    }
+
+    public function loginPost(LocalLoginRequest $request){
+
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password, 'active_local'=>true], true)) {
+            return redirect()->route('dashboard');
+        }
+
+        return redirect()->route('login.local')->withErrors(['account'=>'Nincs engedélyezett felhasználó a megadott paraméterekkel']);
+
+    }
+
     //
 
     public function oauth(){
