@@ -53,6 +53,7 @@ class AuthController extends Controller
 
             return redirect('/');
         }
-        else abort(403);
+
+        abort(403);
     }
 }

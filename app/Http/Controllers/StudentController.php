@@ -46,6 +46,7 @@ class StudentController extends Controller
         ]);
     }
 
+    //TODO:: move to AdminController
     public function getSchoolData(){
         function get_string_between($string, $start, $end){
             $string = ' ' . $string;
