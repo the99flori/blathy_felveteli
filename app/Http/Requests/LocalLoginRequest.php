@@ -24,7 +24,17 @@ class LocalLoginRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'email' => 'required|email',
+            'password' => 'required',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'email.required' => 'Email cím megadása kötelező!',
+            'email.email' => 'Email cím formátuma nem megfelelő!',
+            'password.required' => 'Jelszó megadása kötelező!'
         ];
     }
 }

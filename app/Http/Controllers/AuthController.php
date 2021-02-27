@@ -20,7 +20,7 @@ class AuthController extends Controller
 
     public function loginPost(LocalLoginRequest $request){
 
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->password, 'active_local'=>true], true)) {
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password, 'login_type'=>'native'], true)) {
             return redirect()->route('dashboard');
         }
 

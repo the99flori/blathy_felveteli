@@ -17,8 +17,7 @@ class UpdateUserTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
-            $table->boolean('active_local');
-            $table->boolean('active_oauth');
+            $table->enum('login_type', ['oauth_azure', 'native'])->comment('Authentication mode type ("oauth_azure", "native")');
         });
     }
 
@@ -32,9 +31,8 @@ class UpdateUserTable extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('email_verified_at');
             $table->dropColumn('password');
-            $table->dropColumn('active_local');
             $table->dropColumn('remember_token');
-            $table->dropColumn('active_oauth');
+            $table->dropColumn('login_type');
         });
     }
 }
