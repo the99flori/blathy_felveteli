@@ -70,6 +70,7 @@ class AuthController extends Controller
 
             return redirect()->route('dashboard.index');
         }
-        else abort(403);
+
+        abort(403);
     }
 }
