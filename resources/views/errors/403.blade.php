@@ -15,7 +15,7 @@
 
 <body class="bg-gradient-light">
 <div class="text-center mt-5">
-    <div class="error mx-auto" data-text="403">
+    <div class="error mx-auto" data-text="400">
         <p class="m-0">403</p>
     </div>
     <p class="text-dark mb-5 lead">Hozzáférés megtagadva</p>
