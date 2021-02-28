@@ -14,6 +14,23 @@ use App\Http\Requests\LocalLoginRequest;
 class AuthController extends Controller
 {
 
+    public function logout(){
+        if(Auth::check()){
+            User::where('id', Auth::user()->id)
+                ->update([
+                    'accessToken' => NULL,
+                    'refreshToken' => NULL,
+                    'tokenExpires' => NULL,
+                ]);
+        }
+
+        Auth::logout();
+        request()->session()->invalidate();
+        request()->session()->regenerateToken();
+
+        return redirect()->route('home');
+    }
+
     public function login(){
         return view('auth.login');
     }
@@ -51,7 +68,7 @@ class AuthController extends Controller
 
             Auth::loginUsingId($user->id);
 
-            return redirect('/');
+            return redirect()->route('dashboard.index');
         }
         else abort(403);
     }
