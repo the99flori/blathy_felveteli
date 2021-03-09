@@ -36,4 +36,9 @@ class Student extends Model
         return $this->hasOne(oralPoint::class);
     }
 
+    public function result()
+    {
+        return $this->hasOne(Result::class);
+    }
+
 }

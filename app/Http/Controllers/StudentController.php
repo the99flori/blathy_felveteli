@@ -8,6 +8,7 @@ use GuzzleHttp\Client;
 
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\StudentsImport;
+use App\Imports\ResultsImport;
 
 use App\Models\Student;
 use App\Models\primarySchool;
@@ -42,6 +43,34 @@ class StudentController extends Controller
         ]);
 
         return view('schedule.index', [
+            'student' => $student,
+        ]);
+    }public function resultLogin(){
+
+        return view('result.login');
+
+    }
+
+    public function resultIndex(getScheduleRequest $request){
+        if($request->input('sign') != NULL)
+            $sign = strtoupper($request->input('sign'));
+        else
+            $sign = NULL;
+
+        $student = Student::where('eduId', $request->input('eduId'))
+            ->where('born', $request->input('born'))
+            ->where('sign', $sign)
+            ->first();
+
+        if($student == NULL) return redirect()->route('schedule')->withErrors(['msg' => 'Adott paraméterekkel nem található jelentkező!']);
+
+        StudentLog::create([
+            'eduid' => $student->eduId,
+            'ip' => $request->ip(),
+            'note' => $request->userAgent(),
+        ]);
+
+        return view('result.index', [
             'student' => $student,
         ]);
     }
@@ -84,7 +113,8 @@ class StudentController extends Controller
 
     public function import()
     {
-        Excel::import(new StudentsImport,request()->file('file'));
+        if(request()->input('importof') == 'students') Excel::import(new StudentsImport,request()->file('file'));
+        if(request()->input('importof') == 'results') Excel::import(new ResultsImport,request()->file('file'));
 
         return redirect()->back();
     }

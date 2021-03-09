@@ -17,7 +17,7 @@ use \App\Http\Controllers\StudentController;
 */
 
 Route::get('/', function(){
-    return redirect('/schedule');
+    return redirect('/result');
 });
 
 Route::get('/login', [AuthController::class, 'oauth'])->name('login');
@@ -29,6 +29,10 @@ Route::get('/callback', [AuthController::class, 'callback'])->name('callback');
 
 Route::get('/schedule', [StudentController::class, 'login'])->name('schedule');
 Route::post('/schedule', [StudentController::class, 'index'])->name('schedule.index');
+
+Route::get('/result', [StudentController::class, 'resultLogin'])->name('result');
+Route::post('/result', [StudentController::class, 'resultIndex'])->name('result.index');
+
 Route::get('/school', [StudentController::class, 'getSchoolData'])->middleware('auth');
 
 Route::get('/import', [StudentController::class, 'importView'])->middleware('auth');
