@@ -41,6 +41,7 @@ class ResultsImport implements ToModel, WithHeadingRow, WithCustomCsvSettings
             'student_id' => $student->id,
             'tt0023' => $row['tt0023'],
             'tt0025' => $row['tt0025'],
+            'sumpoint' => $row['sumpoint'],
         ]);
 
 

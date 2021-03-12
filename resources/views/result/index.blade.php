@@ -35,6 +35,14 @@
                 <table class="table table-bordered">
                     <tbody class="text-primary">
                     <tr>
+                        <th class="text-uppercase">A felvételi eljárásban elért<br>összesített eredmény (0-100):</th>
+                        @if(is_numeric($student->result->sumpoint))
+                            <td class="align-middle">{{$student->result->sumpoint}} pont</td>
+                        @else
+                            <td class="align-middle">{{$student->result->sumpoint}}</td>
+                        @endif
+                    </tr>
+                    <tr>
                         <th class="text-uppercase">0023 tanulmányi terület:</th>
                         @if(is_numeric($student->result->tt0023))
                         <td>{{$student->result->tt0023}}. hely a rangsorban</td>
