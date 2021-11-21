@@ -25,7 +25,7 @@
                         </div>
                         <div class="col-lg-6">
                             <div class="p-0">
-                                <div class="text-center p-5"><img src="{{ asset('assets/img/logos/blathy_felirat.png') }}" style="width: 70%;">
+                                <div class="text-center p-5"><img src="{{ asset('assets/img/logos/blathy_felirat.png') }}" style="width: 100%;">
                                     <h4 class="text-dark mb-4">Felvételi eredmény</h4>
 
                                     @error('msg')

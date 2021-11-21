@@ -26,8 +26,6 @@
 
                 <li class="nav-item"><a class="nav-link @if(Route::currentRouteName() == 'dashboard.index') active @endif" href="{{ route('dashboard.index') }}"><i class="fas fa-tachometer-alt"></i>Adminisztrációs központ</a></li>
                 <li class="nav-item"><a class="nav-link @if(Route::currentRouteName() == 'dashboard.import.get') active @endif" href="{{ route('dashboard.import.get') }}"><i class="fas fa-file-upload"></i><span>Tanulói adatok importálása</span></a></li>
-                <li class="nav-item"><a class="nav-link @if(strpos(Route::currentRouteName(), 'dashboard.student.oralexam') !== FALSE) active @endif" href="{{ route('dashboard.student.oralexam.index') }}"><i class="fas fa-calendar-alt"></i><span>Beosztás lekérdezése</span></a></li>
-                <li class="nav-item"><a class="nav-link {{-- @if(Route::currentRouteName() == 'dashboard.index') active @endif --}}" href="{{-- route('dashboard.school') --}}"><i class="fas fa-university"></i><span>Iskolák lekérdezése</span></a></li>
 
                 @show
 

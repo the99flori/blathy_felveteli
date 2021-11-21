@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
 use App\Imports\StudentsImport;
+use App\Imports\KOZFELVIRapplicants;
+use App\Imports\primarySchoolsImport;
 
 use App\Models\primarySchool;
 use App\Models\Student;
@@ -46,7 +48,7 @@ class AdminController extends Controller
         ]);
     }
 
-    public function getSchoolData(){
+    /*public function getSchoolData(){
         function get_string_between($string, $start, $end){
             $string = ' ' . $string;
             $ini = strpos($string, $start);
@@ -59,20 +61,20 @@ class AdminController extends Controller
         $client = new Client();
 
         foreach (Student::select('primaryOM')->get() as $om){
-            $response = $client->request('GET', 'https://www.oktatas.hu/kozneveles/intezmenykereso/koznevelesi_intezmenykereso/!DARI_Intezmenykereso/oh.php?id=kir_int_mod&param='.$om->primaryOM);
+            $response = $client->request('GET', 'https://dari.oktatas.hu/kir_int_pub_reszlet/'.$om->primaryOM);
 
-            $parsed = get_string_between($response->getBody()->getContents(), 'A(z)', ') köznevelési');
-            $pieces = explode("(", $parsed);
+            $name = get_string_between($response->getBody()->getContents(), '<label class="col-lg-2 col-form-label font-weight-bold">Az intézmény megnevezése:</label><div class="col-lg-8 mt-lg-2">', '</div>');
+            $address = get_string_between($response->getBody()->getContents(), '<label class="col-lg-2 col-form-label font-weight-bold">Székhelye:</label><div class="col-lg-8 mt-lg-2">', '</div>');
 
             primarySchool::firstOrCreate([
                 'om' => $om->primaryOM,
             ],
                 [
-                    'name' => trim($pieces[0]),
-                    'address' => trim($pieces[1]),
+                    'name' => trim($name),
+                    'address' => trim($address),
                 ]);
         }
-    }
+    }*/
 
     public function importView()
     {
@@ -81,9 +83,20 @@ class AdminController extends Controller
 
     public function import()
     {
-        Excel::import(new StudentsImport,request()->file('file'));
+        switch (request()->input('importType')){
+            case "KOZFELVIRapplicants":
+                Excel::import(new KOZFELVIRapplicants,request()->file('file'));
+                break;
+            case "StudentsImport":
+                Excel::import(new StudentsImport,request()->file('file'));
+                break;
+            case "primarySchoolsImport":
+                Excel::import(new primarySchoolsImport,request()->file('file'));
+                break;
+        }
+
         // TODO: hibakezelés és visszajelzés
 
-        return redirect()->back();
+        return redirect()->back()->withErrors(['msg' => 'Sikeres importálás!']);
     }
 }

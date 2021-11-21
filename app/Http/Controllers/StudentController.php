@@ -24,7 +24,7 @@ class StudentController extends Controller
             $sign = NULL;
 
         $student = Student::where('eduId', $request->input('eduId'))
-            ->where('born', $request->input('born'))
+            ->where('bornDate', $request->input('born'))
             ->where('sign', $sign)
             ->first();
 
@@ -37,6 +37,31 @@ class StudentController extends Controller
         ]);
 
         return view('schedule.index', [
+            'student' => $student,
+        ]);
+    }
+
+    public function apply_login(){
+
+        return view('apply.login');
+
+    }
+
+    public function apply_index(getScheduleRequest $request){
+
+        $student = Student::where('eduId', $request->input('eduId'))
+            ->where('bornDate', $request->input('born'))
+            ->first();
+
+        if($student == NULL) return redirect()->route('apply')->withErrors(['msg' => 'Adott paraméterekkel nem található tanuló!']);
+
+        StudentLog::create([
+            'eduid' => $student->eduId,
+            'ip' => $request->ip(),
+            'note' => $request->userAgent(),
+        ]);
+
+        return view('apply.index', [
             'student' => $student,
         ]);
     }

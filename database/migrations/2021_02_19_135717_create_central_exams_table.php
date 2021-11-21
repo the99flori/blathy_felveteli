@@ -16,7 +16,9 @@ class CreateCentralExamsTable extends Migration
         Schema::create('central_exams', function (Blueprint $table) {
             $table->id();
             $table->foreignId('student_id');
+            $table->boolean('isHun')->default(false);
             $table->tinyInteger('hun')->default(0);
+            $table->boolean('isMath')->default(false);
             $table->tinyInteger('math')->default(0);
 
             $table->timestamps();
