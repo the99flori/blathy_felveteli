@@ -17,8 +17,8 @@ class TokenValidate
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::check() && Auth::user()->tokenExpires <= time() + 300) {
-            // Check User and Token is expired (or very close to it /5 min/)
+        if (Auth::check() && Auth::user()->login_type == 'oauth_azure' && Auth::user()->tokenExpires <= time() + 300) {
+            // Check User have OAuthLogin and Token is expired (or very close to it /5 min/)
 
             $client = new GuzzleHttp\Client();
             try{
@@ -46,6 +46,7 @@ class TokenValidate
 
             catch(Exception $e) {
                 Auth::logout();
+                //TODO: Maybe should clear tokens
             }
         }
 

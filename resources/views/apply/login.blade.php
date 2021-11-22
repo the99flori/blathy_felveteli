@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Szóbeli beosztás - Bláthy</title>
+    <title>Felvételi - Bláthy</title>
     <link rel="icon" href="{{ asset('assets/img/logos/blathy_icon.png') }}">
     <link rel="stylesheet" href="{{ asset('assets/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
@@ -26,7 +26,7 @@
                         <div class="col-lg-6">
                             <div class="p-0">
                                 <div class="text-center p-5"><img src="{{ asset('assets/img/logos/blathy_felirat.png') }}" style="width: 100%;">
-                                    <h4 class="text-dark mb-4">Szóbeli beosztás</h4>
+                                    <h4 class="text-dark mb-4">Központi felvételi vizsga<br>információs felület</h4>
 
                                     @error('msg')
                                     <div class="alert alert-danger alert-dismissible" role="alert">
@@ -34,14 +34,14 @@
                                         <span style="font-size: 13px;">{{ $message }}</span>
                                     </div>
                                     @enderror
-				    @if(false)
+				    @if(true)
    				    <div class="alert alert-warning" role="alert">
-                                        <span style="font-size: 13px;">A jelentkezések feldolgozás alatt állnak, várhatóan <b>2021.02.25 délutántól</b> válnak elérhetővé! </span>
+                                        <span style="font-size: 13px;">A jelentkezések feldolgozása a beérkezéstől számított 2 munkanapon belül történik meg!<br><i>Adatok frissítve: {{$updated_at}}</i></span>
                                     </div>
 				    @endif
 
 
-                                    <form class="user" method="post" action="{{ route('schedule.index') }}">
+                                    <form class="user" method="post" action="{{ route('apply.index') }}">
                                         @csrf
                                         <div class="form-group">
                                             <label class="float-left" for="eduId" style="font-size: 13px;padding-left: 15px;"><strong>Oktatási azonosító</strong></label>
@@ -52,11 +52,6 @@
                                             <label class="float-left" for="born" style="font-size: 13px;padding-left: 15px;"><strong>Születési dátum</strong></label>
                                             @error('born') <small class="text-right text-danger d-block" style="padding-right: 15px;">{{ $message }}</small>@enderror
                                             <input class="form-control form-control-user @error('born') border-danger @enderror " id="born" name="born" type="date" pattern="\d{4}-\d{2}-\d{2}" placeholder="éééé-hh-nn"></div>
-                                        <div class="form-group">
-                                            <label class="float-left" for="born" style="font-size: 13px;padding-left: 15px;"><strong>Jelige</strong></label>
-                                            @error('sign') <small class="text-right text-danger d-block" style="padding-right: 15px;">{{ $message }}</small>@enderror
-                                            <input class="form-control form-control-user @error('sign') border-danger @enderror " type="text" id="sign" placeholder="ha nem adott meg, hagyja üresen" name="sign">
-                                        </div>
                                         <button class="btn btn-primary btn-block text-white btn-user" name="submit" type="submit">Lekérdezés</button>
                                     </form>
                                     <hr>
@@ -96,14 +91,14 @@
                             <th style="border-right-width: 1px;border-right-style: solid;">Születési dátum</th>
                             <td>A tanuló születési ideje</td>
                         </tr>
-                        <tr>
+{{--                        <tr>
                             <th style="border-right-width: 1px;border-right-style: solid;">Jelige</th>
                             <td>A jelentkezési lapon lehetett megadni, amennyiben nem adott meg, akkor hagyja üresen</td>
-                        </tr>
+                        </tr>--}}
                         </tbody>
                     </table>
                 </div>
-                <p class="text-center">Amennyiben további segítségre van szüksége, írjon a&nbsp;<a href="mailto:rendszergazda@blathy-bp.sulinet.hu">rendszergazda@blathy-bp.sulinet.hu</a>&nbsp;címre.<br></p>
+                <p class="text-center">Amennyiben további segítségre van szüksége, írjon a <i><a href="mailto:rendszergazda@blathy.info">rendszergazda@blathy.info</a></i> címre<br>vagy keresse a titkárságot a <i><a href="tel:+3613872111">+36 1 387 2111</a></i>-es telefonszámon.</p>
             </div>
         </div>
     </div>

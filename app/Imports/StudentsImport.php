@@ -33,14 +33,15 @@ class StudentsImport implements ToModel, WithHeadingRow, WithCustomCsvSettings
             'name' => $row['name'],
             'eduId' => $row['eduid'],
             'primaryOM' => $row['om'],
-            'born' => $row['born'],
-            'email' => $row['email'],
+            'bornPlace' => $row['bornPlace'],
+            'bornDate' => $row['bornDate'],
+            'email' => ($row['email'] == NULL) ? NULL : $row['email'],
             'sign' => ($row['sign'] == NULL) ? NULL : strtoupper($row['sign']),
             'n23' => ($row['n23'] == NULL) ? 0 : 1,
             'n25' => ($row['n25'] == NULL) ? 0 : 1,
         ]);
 
-        primaryPoint::create([
+        /*primaryPoint::create([
             'student_id' => $student->id,
             'lit_7' => $row['lit_7'],
             'lit_8h' => $row['lit_8h'],
@@ -78,7 +79,7 @@ class StudentsImport implements ToModel, WithHeadingRow, WithCustomCsvSettings
             'panel_id' => $panelid,
             'datetime' => $row['datetime'],
             'note' => $row['note'],
-        ]);
+        ]);*/
 
 
         return $student;

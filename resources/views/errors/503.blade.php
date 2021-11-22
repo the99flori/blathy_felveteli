@@ -18,7 +18,7 @@
     <div class="error mx-auto" data-text="500">
         <p class="m-0">503</p>
     </div>
-    <p class="text-dark mb-5 lead">Szolgáltatás nem elérhető</p>
+    <p class="text-dark mb-5 lead">A szolgáltatás nem elérhető</p>
     <p class="text-black-50 mb-0" style="padding-bottom: 10px;">Valamin nagyon dolgozunk... Hamarosan visszatérünk!  BOT_IT<br></p>
 </div>
 <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
