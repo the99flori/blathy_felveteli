@@ -42,8 +42,11 @@ class StudentController extends Controller
     }
 
     public function apply_login(){
+        $updated_at = (($update = Student::orderBy('updated_at','DESC')->first()) == null ? "nincs adat" : date('Y.m.d. H:i', strtotime($update->updated_at)));
 
-        return view('apply.login');
+        return view('apply.login', [
+            'updated_at' => $updated_at,
+        ]);
 
     }
 

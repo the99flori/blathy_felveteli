@@ -18,11 +18,13 @@ class primarySchoolsImport implements ToModel, WithHeadingRow
     */
     public function model(array $row)
     {
-
-        $primarySchool = primarySchool::updateOrCreate(['om' => $row['OM azonosító']],[
-            'name' => $row['Intézmény megnevezése'],
-            'address' => $row['Intézmény székhelyének irányítószáma']." ".$row['Intézmény székhelyének települése'].", ".$row['Intézmény székhelyének pontos címe'],
-        ]);
+        $primarySchool = NULL;
+        if($row['Intézmény státusza'] == "aktív" && $row['általános iskolai nevelés-oktatás'] == "X"){
+            $primarySchool = primarySchool::updateOrCreate(['om' => $row['OM azonosító']],[
+                'name' => $row['Intézmény megnevezése'],
+                'address' => $row['Intézmény székhelyének irányítószáma']." ".$row['Intézmény székhelyének települése'].", ".$row['Intézmény székhelyének pontos címe'],
+            ]);
+        }
 
         return $primarySchool;
     }

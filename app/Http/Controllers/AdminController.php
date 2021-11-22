@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
+
+use App\Http\Requests\ImportRequest;
 
 use App\Imports\StudentsImport;
 use App\Imports\KOZFELVIRapplicants;
 use App\Imports\primarySchoolsImport;
 
-use App\Models\primarySchool;
 use App\Models\Student;
 use App\Models\StudentLog;
 
@@ -81,17 +81,17 @@ class AdminController extends Controller
         return view('dashboard.import');
     }
 
-    public function import()
+    public function import(ImportRequest $request)
     {
-        switch (request()->input('importType')){
+        switch ($request->input('importType')){
             case "KOZFELVIRapplicants":
-                Excel::import(new KOZFELVIRapplicants,request()->file('file'));
+                Excel::import(new KOZFELVIRapplicants,$request->file('file'));
                 break;
             case "StudentsImport":
-                Excel::import(new StudentsImport,request()->file('file'));
+                Excel::import(new StudentsImport,$request->file('file'));
                 break;
             case "primarySchoolsImport":
-                Excel::import(new primarySchoolsImport,request()->file('file'));
+                Excel::import(new primarySchoolsImport,$request->file('file'));
                 break;
         }
 

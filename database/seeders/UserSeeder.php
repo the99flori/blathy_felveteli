@@ -31,6 +31,20 @@ class UserSeeder extends Seeder
             'role' => 'admin',
         ]);
 
+        User::create([
+            'email' => 'sebestyen.eva@blathy.info',
+            'password' => Hash::make(Str::random(10)),
+            'login_type' => 'oauth_azure',
+            'role' => 'admin',
+        ]);
+
+        User::create([
+            'email' => 'madarasz.peter@blathy.info',
+            'password' => Hash::make(Str::random(10)),
+            'login_type' => 'oauth_azure',
+            'role' => 'admin',
+        ]);
+
 
     }
 }

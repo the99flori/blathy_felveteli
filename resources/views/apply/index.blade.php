@@ -15,7 +15,7 @@
 
 <body class="bg-gradient-light">
 <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
-    <div class="container-fluid"><img src="{{ asset('assets/img/logos/blathy_felirat.png') }}" style="min-width: 100px;max-width: 15%;"><a class="navbar-brand">- Központi írásbeli felvételi&nbsp;tájékoztató felület</a>
+    <div class="container-fluid"><img src="{{ asset('assets/img/logos/blathy_felirat.png') }}" style="min-width: 100px;max-width: 15%;"><a class="navbar-brand d-none d-md-inline">- Központi írásbeli felvételi&nbsp;tájékoztató felület</a>
         <ul class="navbar-nav flex-nowrap ml-auto">
             <div class="d-none d-sm-block topbar-divider"></div>
             <li class="nav-item"><a href="{{ route('apply') }}" class="btn btn-secondary btn-icon-split" role="button"><span class="text-white text">Kilépés</span><span class="text-white-50 icon"><i class="fas fa-sign-out-alt"></i></span></a></li>
@@ -73,7 +73,7 @@
             </div>
         </div>
         <div class="card-body">
-            <p class="lead text-center card-text"><strong>A vizsgabeosztás várhatóan 2022.01.01. napján készül el.</strong><br></p>
+            <p class="lead text-center card-text"><strong>A vizsgabeosztás várhatóan <u>2022. január közepén</u> készül el.</strong><br></p>
         </div>
         <div class="card-footer">
             <p class="text-center" style="margin-bottom: 0px;">A megadott email címen tájékoztatni fogjuk:<br></p>

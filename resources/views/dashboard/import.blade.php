@@ -28,7 +28,7 @@
                                         <option value="primarySchoolsImport">Köznevelési intézmények adatai</option>
                                     </optgroup>
                                 </select></div>
-                            <div class="col-xl-5 align-self-center"><input class="form-control-file" type="file" id="file" name="file"></div>
+                            <div class="col-xl-5 align-self-center"><input class="form-control-file" type="file" required="" id="file" name="file"></div>
                             <div class="col text-right"><button class="btn btn-primary" type="submit">Importálás</button></div>
                         </div>
                     </div>

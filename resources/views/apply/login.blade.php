@@ -36,7 +36,7 @@
                                     @enderror
 				    @if(true)
    				    <div class="alert alert-warning" role="alert">
-                                        <span style="font-size: 13px;">A jelentkezések feldolgozása a beérkezéstől számított 2 munkanapon belül történik meg!</span>
+                                        <span style="font-size: 13px;">A jelentkezések feldolgozása a beérkezéstől számított 2 munkanapon belül történik meg!<br><i>Adatok frissítve: {{$updated_at}}</i></span>
                                     </div>
 				    @endif
 
@@ -98,7 +98,7 @@
                         </tbody>
                     </table>
                 </div>
-                <p class="text-center">Amennyiben további segítségre van szüksége, írjon a&nbsp;<a href="mailto:rendszergazda@blathy.info">rendszergazda@blathy.info</a>&nbsp;címre<br>vagy keresse a titkárságot a <i><a href="tel:+3613872111">+36 1 387 2111</a></i>-es telefonszámon.</p>
+                <p class="text-center">Amennyiben további segítségre van szüksége, írjon a <i><a href="mailto:rendszergazda@blathy.info">rendszergazda@blathy.info</a></i> címre<br>vagy keresse a titkárságot a <i><a href="tel:+3613872111">+36 1 387 2111</a></i>-es telefonszámon.</p>
             </div>
         </div>
     </div>
