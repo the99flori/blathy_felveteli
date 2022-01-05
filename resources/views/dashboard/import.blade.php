@@ -21,6 +21,9 @@
                         <label for="file" style="font-size: 14px;"><strong>Importálandó kiválasztása</strong></label><span class="text-danger float-right" style="padding-right: 5px;font-size: 14px;">Kötelező!</span>
                         <div class="form-row">
                             <div class="col-xl-4"><select class="custom-select d-inline" name="importType">
+                                    <optgroup label="BLÁTHY">
+                                        <option value="CentralExamTapaScheduleTable" selected="">Írásbeli beosztás (TAPA)</option>
+                                    </optgroup>
                                     <optgroup label="KÖZFELVIR">
                                         <option value="KOZFELVIRapplicants" selected="">Vizsgajelentkezők</option>
                                     </optgroup>

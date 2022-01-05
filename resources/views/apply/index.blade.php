@@ -18,7 +18,7 @@
     <div class="container-fluid"><img src="{{ asset('assets/img/logos/blathy_felirat.png') }}" style="min-width: 100px;max-width: 15%;"><a class="navbar-brand d-none d-md-inline">- Központi írásbeli felvételi&nbsp;tájékoztató felület</a>
         <ul class="navbar-nav flex-nowrap ml-auto">
             <div class="d-none d-sm-block topbar-divider"></div>
-            <li class="nav-item"><a href="{{ route('apply') }}" class="btn btn-secondary btn-icon-split" role="button"><span class="text-white text">Kilépés</span><span class="text-white-50 icon"><i class="fas fa-sign-out-alt"></i></span></a></li>
+            <li class="nav-item"><a href="{{ route('logout') }}" class="btn btn-secondary btn-icon-split" role="button"><span class="text-white text">Kilépés</span><span class="text-white-50 icon"><i class="fas fa-sign-out-alt"></i></span></a></li>
         </ul>
     </div>
 </nav>
@@ -68,16 +68,89 @@
             <div class="row">
                 <div class="col-auto align-self-center"><i class="fa fa-calendar bg-primary border rounded-circle shadow" style="color: var(--white);padding: 10px;font-size: 20px;"></i></div>
                 <div class="col align-self-center">
-                    <p class="text-primary d-inline m-0 font-weight-bold">Vizsgabeosztás<br></p>
+                    <p class="text-primary d-inline m-0 font-weight-bold">Vizsgabeosztás</p>
+                </div>
+            </div>
+        </div>
+        @if($student->centralExam->hunRoom!=NULL || $student->centralExam->mathRoom!=NULL)
+        <div class="card-body">
+            <p class="lead text-center card-text">A központi írásbeli vizsgájával kapcsolatban a következő tájékoztatást adjuk:<br></p>
+            <div class="table-responsive text-start">
+                <table class="table table-sm table-borderless">
+                    <tbody>
+                    <tr>
+                        <th style="width: 30%;">Időpont:</th>
+                        <td>2022.01.22.</td>
+                    </tr>
+                    <tr>
+                        <th style="width: 30%;">Helyszín:</th>
+                        <td>BMSZC Bláthy Ottó Titusz Informatikai Technikum<br><em>1032 Budapest, Bécsi út 134.</em></td>
+                    </tr>
+                    <tr>
+                        <th>Gyülekező:</th>
+                        <td>107 tanterem, 09:30<br></td>
+                    </tr>
+                    <tr>
+                        <th>Magyar nyelv:</th>
+                        <td>@isset($student->centralExam->hunRoom){{$student->centralExam->hunRoom}} tanterem, 10:00 @else beosztás alatt... @endisset</td>
+                    </tr>
+                    <tr>
+                        <th>Matematika:</th>
+                        <td>@isset($student->centralExam->mathRoom){{$student->centralExam->mathRoom}} tanterem, 11:00 @else beosztás alatt... @endisset</td>
+                    </tr>
+                    </tbody>
+                    @if($student->centralExam->isSpecial)
+                    <tfoot>
+                    <tr>
+                        <td colspan="2"><a class="btn @isset($file) btn-primary @else btn-outline-primary disabled @endisset text-center d-block" role="button" href="@isset($file){{route('studentfile', $file->id)}}@endisset" target="_blank" style="margin-top: 5px;"><strong>Határozat a tanulót megillető vizsgakedvezményekről @isset($file) letöltése @else feltöltés alatt... @endisset </strong><br></a></td>
+                    </tr>
+                    </tfoot>
+                    @endif
+                </table>
+            </div>
+            <p class="text-center card-text" style="text-align: justify;color: var(--danger);">A vizsgára feltétlenül hozzon magával fényképes&nbsp;igazolványt!<br><em>(Például: diákigazolvány vagy személyi igazolvány)</em><br></p>
+            <p class="card-text" style="text-align: justify;">Az írásbeli vizsga során a dolgozat megírásakor a rajzokat ceruzával, minden egyéb írásbeli munkát kék vagy fekete színű tintával kell elkészíteni. A magyar nyelvi feladatlapok kitöltéséhez segédeszköz nem használható. A matematika feladatlapok kitöltéséhez rajzeszközökön (vonalzó, körző, szögmérő) kívül más segédeszköz (pl. zsebszámológép) nem használható.<br></p>
+        </div>
+        @else
+        <div class="card-body">
+                <p class="lead text-center card-text"><strong>A vizsgabeosztás várhatóan <u>2022. január közepén</u> készül el.</strong><br></p>
+            </div>
+        <div class="card-footer">
+                <p class="text-center" style="margin-bottom: 0px;">A megadott email címen tájékoztatni fogjuk:<br></p>
+                <p class="text-center text-primary" style="margin-bottom: 0px;"><strong>{{$student->email}}</strong><br></p>
+            </div>
+        @endif
+    </div>
+    <div class="card shadow my-5 border-left-info">
+        <div class="card-header py-3">
+            <div class="row">
+                <div class="col-auto align-self-center"><i class="far fa-eye bg-info border rounded-circle shadow" style="color: var(--white);padding: 10px;font-size: 20px;"></i></div>
+                <div class="col align-self-center">
+                    <p class="text-info d-inline m-0 font-weight-bold">Vizsgamegtekintés</p>
                 </div>
             </div>
         </div>
         <div class="card-body">
-            <p class="lead text-center card-text"><strong>A vizsgabeosztás várhatóan <u>2022. január közepén</u> készül el.</strong><br></p>
-        </div>
-        <div class="card-footer">
-            <p class="text-center" style="margin-bottom: 0px;">A megadott email címen tájékoztatni fogjuk:<br></p>
-            <p class="text-center text-primary" style="margin-bottom: 0px;"><strong>{{$student->email}}</strong><br></p>
+            <div class="table-responsive text-start">
+                <table class="table table-sm table-borderless">
+                    <tbody>
+                    <tr>
+                        <th style="width: 30%;">Időpont:</th>
+                        <td>2022.01.28. (péntek) 8:00-16:00</td>
+                    </tr>
+                    <tr>
+                        <th style="width: 30%;">Helyszín:</th>
+                        <td>BMSZC Bláthy Ottó Titusz Informatikai Technikum<br>1032 Budapest, Bécsi út 134.</td>
+                    </tr>
+                    <tr>
+                        <th>Terem:</th>
+                        <td>színház<br></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="card-text" style="text-align: justify;">Az írásbeli vizsga kiértékelt dolgozatait a vizsgázó és szülője az iskola képviselőjének jelenlétében megtekintheti, azokról kézzel vagy elektronikus úton másolatot készíthet, és<br><em>– kizárólag a hivatalos javítási-értékelési útmutatótól eltérő értékelés esetén –</em>&nbsp;az értékelésre észrevételt tehet.<br></p>
+            <p class="card-text" style="text-align: justify;">A vizsgázó észrevételeit a megtekintést követő első munkanap végéig <em>– tizenhat óráig –</em> írásban adhatja le. Az észrevétel benyújtására nyitva álló határidő elmulasztása esetén egy napon belül lehet igazolási kérelmet benyújtani. Az igazolási kérelem benyújtási határideje jogvesztő.<br></p>
         </div>
     </div>
 </div>

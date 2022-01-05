@@ -70,6 +70,14 @@ return [
         'array' => [
             'transport' => 'array',
         ],
+
+        'microsoft-graph' => [
+            'transport' => 'microsoft-graph',
+            'tenant' => env('AZURE_TENANT_ID', 'common'),
+            'client' => env('MAIL_MSGRAPH_CLIENT'),
+            'secret' => env('MAIL_MSGRAPH_SECRET'),
+        ],
+
     ],
 
     /*

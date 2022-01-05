@@ -176,7 +176,7 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         //Laravel\Socialite\SocialiteServiceProvider::class,
-        \SocialiteProviders\Manager\ServiceProvider::class, // OAuth stuff
+        SocialiteProviders\Manager\ServiceProvider::class, // OAuth stuff
         Maatwebsite\Excel\ExcelServiceProvider::class, // csv import-export
 
     ],

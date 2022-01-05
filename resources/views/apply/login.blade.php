@@ -41,7 +41,7 @@
 				    @endif
 
 
-                                    <form class="user" method="post" action="{{ route('apply.index') }}">
+                                    <form class="user" method="post" action="{{ route('apply.login') }}">
                                         @csrf
                                         <div class="form-group">
                                             <label class="float-left" for="eduId" style="font-size: 13px;padding-left: 15px;"><strong>Oktatási azonosító</strong></label>
