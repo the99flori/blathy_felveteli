@@ -4,15 +4,23 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Mail;
 
 use App\Http\Requests\ImportRequest;
+use App\Http\Requests\StudentUploadRequest;
+
 
 use App\Imports\StudentsImport;
 use App\Imports\KOZFELVIRapplicants;
 use App\Imports\primarySchoolsImport;
+use App\Imports\CentralExamTapaScheduleTableImport;
 
 use App\Models\Student;
 use App\Models\StudentLog;
+use App\Models\studentFile;
+
+use App\Mail\CentralExamScheduled;
 
 class AdminController extends Controller
 {
@@ -48,34 +56,6 @@ class AdminController extends Controller
         ]);
     }
 
-    /*public function getSchoolData(){
-        function get_string_between($string, $start, $end){
-            $string = ' ' . $string;
-            $ini = strpos($string, $start);
-            if ($ini == 0) return '';
-            $ini += strlen($start);
-            $len = strpos($string, $end, $ini) - $ini;
-            return substr($string, $ini, $len);
-        }
-
-        $client = new Client();
-
-        foreach (Student::select('primaryOM')->get() as $om){
-            $response = $client->request('GET', 'https://dari.oktatas.hu/kir_int_pub_reszlet/'.$om->primaryOM);
-
-            $name = get_string_between($response->getBody()->getContents(), '<label class="col-lg-2 col-form-label font-weight-bold">Az intézmény megnevezése:</label><div class="col-lg-8 mt-lg-2">', '</div>');
-            $address = get_string_between($response->getBody()->getContents(), '<label class="col-lg-2 col-form-label font-weight-bold">Székhelye:</label><div class="col-lg-8 mt-lg-2">', '</div>');
-
-            primarySchool::firstOrCreate([
-                'om' => $om->primaryOM,
-            ],
-                [
-                    'name' => trim($name),
-                    'address' => trim($address),
-                ]);
-        }
-    }*/
-
     public function importView()
     {
         return view('dashboard.import');
@@ -84,6 +64,9 @@ class AdminController extends Controller
     public function import(ImportRequest $request)
     {
         switch ($request->input('importType')){
+            case "CentralExamTapaScheduleTable":
+                Excel::import(new CentralExamTapaScheduleTableImport,$request->file('file'));
+                break;
             case "KOZFELVIRapplicants":
                 Excel::import(new KOZFELVIRapplicants,$request->file('file'));
                 break;
@@ -99,4 +82,72 @@ class AdminController extends Controller
 
         return redirect()->back()->withErrors(['msg' => 'Sikeres importálás!']);
     }
+
+    public function sendEmailConfirm($email)
+    {
+        return view('dashboard.import');
+    }
+
+    public function getStudentCentralExamIndex($id)
+    {
+        $student = Student::where('id', $id)->first();
+        $files = studentFile::select('id', 'type')->where('student_id', $id)->get();
+
+
+        return view('dashboard.student.centralexam.index', [
+            'student' => $student,
+            'files' => $files,
+        ]);
+
+    }
+
+    public function appliesIndex(){
+        $students = Student::all();
+
+        return view('dashboard.applies', [
+            'students' => $students,
+
+        ]);
+    }
+
+    public function postStudentFileupload(StudentUploadRequest $request)
+    {
+        $student = Student::find($request->studentid);
+        $file = $request->file('file');
+        switch ($request->input('type')){
+            case "special_decree":
+                studentFile::create([
+                    'student_id' => $student->id,
+                    'type' => 'special_decree',
+                    'path' => $file->storeAs('students_files', $student->eduId.'_specvizsga_hatarozat.'.$file->extension()),
+                ]);
+                break;
+        }
+
+        // TODO: hibakezelés és visszajelzés
+
+        return redirect()->back()->withErrors(['msg' => 'Sikeres feltöltés!']);
+    }
+
+    public function deleteStudentFile($id){
+        $file = studentFile::find($id);
+        studentFile::destroy($id);
+        Storage::delete($file->path);
+        return back();
+    }
+
+    public function sendEmailCentralExamScheduled(){
+
+        $students = Student::all();
+
+        foreach ($students as $student) {
+            Mail::to($student->email)->later(now()->addMinutes(1),new CentralExamScheduled);
+        }
+
+        Mail::to(['demecs.florian@blathy.info', 'harangozo.zsolt@blathy.info'])->later(now()->addMinutes(1),new CentralExamScheduled);
+
+        return 'SORBA ÁLLÍTVA!';
+    }
+
+
 }

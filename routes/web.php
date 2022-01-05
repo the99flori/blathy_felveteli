@@ -31,8 +31,12 @@ Route::get('/callback', [AuthController::class, 'callback'])->name('callback');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 /* StudentController */
-Route::get('/apply', [StudentController::class, 'apply_login'])->name('apply');
-Route::post('/apply', [StudentController::class, 'apply_index'])->name('apply.index');
+Route::get('/apply/login', [StudentController::class, 'apply_login'])->name('apply');
+Route::post('/apply', [StudentController::class, 'apply_login_post'])->name('apply.login');
+
+Route::get('/apply', [StudentController::class, 'apply_index'])->name('apply.index');
+
+Route::get('/student/file/{id}', [StudentController::class, 'getFile'])->name('studentfile');
 
 //Route::get('/schedule', [StudentController::class, 'login'])->name('schedule');
 //Route::post('/schedule', [StudentController::class, 'index'])->name('schedule.index');
@@ -43,18 +47,28 @@ Route::post('/apply', [StudentController::class, 'apply_index'])->name('apply.in
 Route::prefix('dashboard')->name('dashboard.')->middleware('auth')->group(function () {
 
     Route::get('/', [AdminController::class, 'dashboardIndex'])->name('index');
+    Route::get('/mail/centralexam', [AdminController::class, 'sendEmailCentralExamScheduled']);
 
     Route::prefix('import')->name('import.')->group(function () {
         Route::get('/', [AdminController::class, 'importView'])->name('get');
         Route::post('/', [AdminController::class, 'import'])->name('post');
     });
 
+    Route::get('/applies', [AdminController::class, 'appliesIndex'])->name('applies');
+
     Route::prefix('student')->name('student.')->group(function () {
+
+        Route::post('/fileupload', [AdminController::class, 'postStudentFileupload'])->name('fileupload');
+        Route::get('/filedelete/{id}', [AdminController::class, 'deleteStudentFile'])->name('filedelete');
 
         Route::prefix('oralexam')->name('oralexam.')->group(function () {
             Route::get('/', [AdminController::class, 'getStudentOralExamInfoIndex'])->name('index');
             Route::post('/', [AdminController::class, 'getStudentOralExamInfoRequest'])->name('request');
             Route::get('/{id}', [AdminController::class, 'getStudentOralExamInfo'])->name('info');
+        });
+
+        Route::prefix('centralexam')->name('centralexam.')->group(function () {
+            Route::get('/{id}', [AdminController::class, 'getStudentCentralExamIndex'])->name('index');
         });
     });
 });

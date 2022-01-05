@@ -5,7 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Student extends Model
+use Illuminate\Foundation\Auth\User as Authenticatable;
+
+class Student extends Authenticatable
 {
     use HasFactory;
 
@@ -39,6 +41,11 @@ class Student extends Model
     public function result()
     {
         return $this->hasOne(Result::class);
+    }
+
+    public function files()
+    {
+        return $this->hasMany(studentFile::class);
     }
 
 }

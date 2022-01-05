@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
+        "doctrine/dbal": "^3.2",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
@@ -17,7 +18,8 @@
         "laravel/ui": "^3.2",
         "maatwebsite/excel": "^3.1",
         "microsoft/microsoft-graph": "^1.26",
-        "socialiteproviders/microsoft-azure": "^4.2"
+        "socialiteproviders/microsoft-azure": "^4.2",
+        "wapacro/laravel-msgraph-mail": "^2.0"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
