@@ -80,7 +80,7 @@
                     <tbody>
                     <tr>
                         <th style="width: 30%;">Időpont:</th>
-                        <td>2022.01.22.</td>
+                        <td>2022.01.22. (szombat)</td>
                     </tr>
                     <tr>
                         <th style="width: 30%;">Helyszín:</th>
@@ -88,7 +88,7 @@
                     </tr>
                     <tr>
                         <th>Gyülekező:</th>
-                        <td>107 tanterem, 09:30<br></td>
+                        <td>@isset($student->centralExam->hunRoom){{$student->centralExam->hunRoom}} tanterem, 09:30 @else beosztás alatt... @endisset<br></td>
                     </tr>
                     <tr>
                         <th>Magyar nyelv:</th>
@@ -109,7 +109,7 @@
                 </table>
             </div>
             <p class="text-center card-text" style="text-align: justify;color: var(--danger);">A vizsgára feltétlenül hozzon magával fényképes&nbsp;igazolványt!<br><em>(Például: diákigazolvány vagy személyi igazolvány)</em><br></p>
-            <p class="card-text" style="text-align: justify;">Az írásbeli vizsga során a dolgozat megírásakor a rajzokat ceruzával, minden egyéb írásbeli munkát kék vagy fekete színű tintával kell elkészíteni. A magyar nyelvi feladatlapok kitöltéséhez segédeszköz nem használható. A matematika feladatlapok kitöltéséhez rajzeszközökön (vonalzó, körző, szögmérő) kívül más segédeszköz (pl. zsebszámológép) nem használható.<br></p>
+            <p class="card-text" style="text-align: justify;">Az írásbeli vizsga során a dolgozat megírásakor a rajzokat ceruzával, minden egyéb írásbeli munkát kék színű tintával kell elkészíteni. A magyar nyelvi feladatlapok kitöltéséhez segédeszköz nem használható. A matematika feladatlapok kitöltéséhez rajzeszközökön (vonalzó, körző, szögmérő) kívül más segédeszköz (pl. zsebszámológép) nem használható.<br></p>
         </div>
         @else
         <div class="card-body">
@@ -140,7 +140,7 @@
                     </tr>
                     <tr>
                         <th style="width: 30%;">Helyszín:</th>
-                        <td>BMSZC Bláthy Ottó Titusz Informatikai Technikum<br>1032 Budapest, Bécsi út 134.</td>
+                        <td>BMSZC Bláthy Ottó Titusz Informatikai Technikum<br><i>1032 Budapest, Bécsi út 134.</i></td>
                     </tr>
                     <tr>
                         <th>Terem:</th>
@@ -150,6 +150,7 @@
                 </table>
             </div>
             <p class="card-text" style="text-align: justify;">Az írásbeli vizsga kiértékelt dolgozatait a vizsgázó és szülője az iskola képviselőjének jelenlétében megtekintheti, azokról kézzel vagy elektronikus úton másolatot készíthet, és<br><em>– kizárólag a hivatalos javítási-értékelési útmutatótól eltérő értékelés esetén –</em>&nbsp;az értékelésre észrevételt tehet.<br></p>
+            <p class="card-text" style="text-align: center;font-style: italic;color: var(--danger);">A szülők és gondviselők az iskola épületébe az iskola hatályos <a href="https://old.blathy.info/documents/news_box/BMSZCBl%C3%A1thyOtt%C3%B3TituszInformatikaiTechnikumaJ%C3%A1rv%C3%A1nyElleniV%C3%A9dekez%C3%A9sElj%C3%A1r%C3%A1srendje4.2.pdf" target="_blank"">eljárásrendje</a> alapján csak a megfelelő védettségi igazolás felmutatásával léphetnek be.<br /></p>
             <p class="card-text" style="text-align: justify;">A vizsgázó észrevételeit a megtekintést követő első munkanap végéig <em>– tizenhat óráig –</em> írásban adhatja le. Az észrevétel benyújtására nyitva álló határidő elmulasztása esetén egy napon belül lehet igazolási kérelmet benyújtani. Az igazolási kérelem benyújtási határideje jogvesztő.<br></p>
         </div>
     </div>
