@@ -141,10 +141,10 @@ class AdminController extends Controller
         $students = Student::all();
 
         foreach ($students as $student) {
-            Mail::to($student->email)->later(now()->addMinutes(1),new CentralExamScheduled);
+            //Mail::to($student->email)->later(now()->addMinutes(1),new CentralExamScheduled);
         }
 
-        Mail::to(['demecs.florian@blathy.info', 'harangozo.zsolt@blathy.info'])->later(now()->addMinutes(1),new CentralExamScheduled);
+        //Mail::to(['demecs.florian@blathy.info', 'harangozo.zsolt@blathy.info'])->later(now()->addMinutes(1),new CentralExamScheduled);
 
         return 'SORBA ÁLLÍTVA!';
     }
