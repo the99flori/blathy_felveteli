@@ -96,7 +96,7 @@
                     </tr>
                     <tr>
                         <th>Matematika:</th>
-                        <td>@isset($student->centralExam->mathRoom){{$student->centralExam->mathRoom}} tanterem, 11:00 @else beosztás alatt... @endisset</td>
+                        <td>@isset($student->centralExam->mathRoom){{$student->centralExam->mathRoom}} tanterem, @if($student->centralExam->isSpecial)11:15 @else 11:00 @endif @else beosztás alatt... @endisset</td>
                     </tr>
                     </tbody>
                     @if($student->centralExam->isSpecial)
