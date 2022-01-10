@@ -47,6 +47,7 @@ Route::get('/student/file/{id}', [StudentController::class, 'getFile'])->name('s
 Route::prefix('dashboard')->name('dashboard.')->middleware('auth')->group(function () {
 
     Route::get('/', [AdminController::class, 'dashboardIndex'])->name('index');
+    Route::get('/log', [AdminController::class, 'studentlog'])->name('studentlog');
     Route::get('/mail/centralexam', [AdminController::class, 'sendEmailCentralExamScheduled']);
 
     Route::prefix('import')->name('import.')->group(function () {

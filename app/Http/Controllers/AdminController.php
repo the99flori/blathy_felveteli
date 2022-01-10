@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\DB;
 
 use App\Http\Requests\ImportRequest;
 use App\Http\Requests\StudentUploadRequest;
@@ -147,6 +148,14 @@ class AdminController extends Controller
         //Mail::to(['demecs.florian@blathy.info', 'harangozo.zsolt@blathy.info'])->later(now()->addMinutes(1),new CentralExamScheduled);
 
         return 'SORBA ÁLLÍTVA!';
+    }
+
+    public function studentlog(){
+        $logs = DB::select(DB::raw('SELECT students.*, COUNT(student_logs.eduid) AS count FROM student_logs INNER JOIN students ON students.eduId=student_logs.eduid GROUP BY student_logs.eduid'));
+
+        return view('dashboard.studentlog', [
+            'logs' => $logs,
+        ]);
     }
 
 
