@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Szóbeli beosztás - Bláthy</title>
+    <title>Felvételi - Bláthy</title>
     <link rel="icon" href="{{ asset('assets/img/logos/blathy_icon.png') }}">
     <link rel="stylesheet" href="{{ asset('assets/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
@@ -26,7 +26,7 @@
                         <div class="col-lg-6">
                             <div class="p-0">
                                 <div class="text-center p-5"><img src="{{ asset('assets/img/logos/blathy_felirat.png') }}" style="width: 100%;">
-                                    <h4 class="text-dark mb-4">Szóbeli beosztás</h4>
+                                    <h4 class="text-dark mb-4">Felvételi tájékoztató felület</h4>
 
                                     @error('msg')
                                     <div class="alert alert-danger alert-dismissible" role="alert">
@@ -34,14 +34,14 @@
                                         <span style="font-size: 13px;">{{ $message }}</span>
                                     </div>
                                     @enderror
-				    @if(false)
-   				    <div class="alert alert-warning" role="alert">
-                                        <span style="font-size: 13px;">A jelentkezések feldolgozás alatt állnak, várhatóan <b>2021.02.25 délutántól</b> válnak elérhetővé! </span>
-                                    </div>
-				    @endif
+                                    @if(true)
+                                    <div class="alert alert-warning" role="alert">
+                                        <span style="font-size: 13px;">Adatok frissítve: <i>{{$updated_at}}</i></span>
+                                                    </div>
+                                    @endif
 
 
-                                    <form class="user" method="post" action="{{ route('schedule.index') }}">
+                                    <form class="user" method="post" action="{{ route('schedule.login') }}">
                                         @csrf
                                         <div class="form-group">
                                             <label class="float-left" for="eduId" style="font-size: 13px;padding-left: 15px;"><strong>Oktatási azonosító</strong></label>
@@ -103,7 +103,7 @@
                         </tbody>
                     </table>
                 </div>
-                <p class="text-center">Amennyiben további segítségre van szüksége, írjon a&nbsp;<a href="mailto:rendszergazda@blathy-bp.sulinet.hu">rendszergazda@blathy-bp.sulinet.hu</a>&nbsp;címre.<br></p>
+                <p class="text-center">Amennyiben további segítségre van szüksége, írjon a&nbsp;<a href="mailto:felveteli@blathy.info">felveteli@blathy.info</a>&nbsp;címre.<br></p>
             </div>
         </div>
     </div>

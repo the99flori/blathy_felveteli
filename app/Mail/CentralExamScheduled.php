@@ -28,6 +28,6 @@ class CentralExamScheduled extends Mailable
      */
     public function build()
     {
-        return $this->from('felveteli@blathy.info')->text('emails.centralexam.scheduled_text')->subject('Vizsgabeosztás elkészült');
+        return $this->from('felveteli@blathy.info')->view('emails.centralexam.scheduled');
     }
 }
