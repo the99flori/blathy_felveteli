@@ -5,7 +5,7 @@
 @section('content')
 
 <div class="container-fluid">
-    <h3 class="text-dark mb-4">Vizsgajelentkezés áttekintése</h3>
+    <h3 class="text-dark mb-4">Jelentkezés áttekintése</h3>
     <div class="row mb-3">
         <div class="col-lg-8 col-xl-6">
             <div class="row">
@@ -26,7 +26,7 @@
                                             </tr>
                                             <tr>
                                                 <th>Születési hely, idő:</th>
-                                                <td>{{$student->bornPlace}}, {{$student->bornDate}}</td>
+                                                <td>{{$student->bornPlace}}, {{date("Y.m.d.", strtotime($student->bornDate))}}</td>
                                             </tr>
                                             <tr>
                                                 <th>Oktatási azonosító:</th>
@@ -34,11 +34,15 @@
                                             </tr>
                                             <tr>
                                                 <th>Általános iskola:</th>
-                                                <td>{{$student->primarySchool->name}}</td>
+                                                <td>@if(isset($student->primarySchool)) {{$student->primarySchool->name}}@endif - ({{$student->primaryOM}})</td>
                                             </tr>
                                             <tr>
                                                 <th>Email értesítési cím:</th>
                                                 <td>{{$student->email}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Jelige:</th>
+                                                <td>@if(isset($student->sign)) {{$student->sign}} @else nincs megadva @endif</td>
                                             </tr>
                                             </tbody>
                                         </table>
@@ -50,6 +54,7 @@
                 </div>
             </div>
         </div>
+        @isset($student->centralExam)
         <div class="col-lg-4 col-xl-6">
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
@@ -86,6 +91,7 @@
                         @endif
                     @endforeach
                 </div>
+                @endisset
             </div>
         </div>
     </div>

@@ -26,7 +26,7 @@
                         <div class="col-lg-6">
                             <div class="p-0">
                                 <div class="text-center p-5"><img src="{{ asset('assets/img/logos/blathy_felirat.png') }}" style="width: 100%;">
-                                    <h4 class="text-dark mb-4">Központi felvételi vizsga<br>információs felület</h4>
+                                    <h4 class="text-dark mb-4">Felvételi tájékoztató felület</h4>
 
                                     @error('msg')
                                     <div class="alert alert-danger alert-dismissible" role="alert">
@@ -34,11 +34,11 @@
                                         <span style="font-size: 13px;">{{ $message }}</span>
                                     </div>
                                     @enderror
-				    @if(true)
-   				    <div class="alert alert-warning" role="alert">
-                                        <span style="font-size: 13px;">A jelentkezések feldolgozása a beérkezéstől számított 2 munkanapon belül történik meg!<br><i>Adatok frissítve: {{$updated_at}}</i></span>
-                                    </div>
-				    @endif
+                                    @if(true)
+                                    <div class="alert alert-warning" role="alert">
+                                                        <span style="font-size: 13px;">A jelentkezések feldolgozása a beérkezéstől számított 2 munkanapon belül történik meg!<br><i>Adatok frissítve: {{$updated_at}}</i></span>
+                                                    </div>
+                                    @endif
 
 
                                     <form class="user" method="post" action="{{ route('apply.login') }}">

@@ -1,10 +1,10 @@
 @extends('dashboard.layout')
 
-@section('title', 'Tanulói adatok importálása')
+@section('title', 'Adatok importálása')
 
 @section('content')
     <div class="d-sm-flex justify-content-between align-items-center mb-4">
-        <h3 class="text-dark mb-0">Tanulói adatok importálása</h3>
+        <h3 class="text-dark mb-0">Adatok importálása</h3>
     </div>
     <div class="card shadow mb-3">
         <div class="card-body">
@@ -22,10 +22,14 @@
                         <div class="form-row">
                             <div class="col-xl-4"><select class="custom-select d-inline" name="importType">
                                     <optgroup label="BLÁTHY">
-                                        <option value="CentralExamTapaScheduleTable" selected="">Írásbeli beosztás (TAPA)</option>
+                                        <option value="CentralExamTapaScheduleTable">Írásbeli beosztás (TAPA)</option>
+                                        <option value="OralExamTapaSchedule">Szóbeli beosztás (TAPA)</option>
                                     </optgroup>
                                     <optgroup label="KÖZFELVIR">
-                                        <option value="KOZFELVIRapplicants" selected="">Vizsgajelentkezők</option>
+                                        <option value="KOZFELVIRapplicants">Vizsgajelentkezők</option>
+                                    </optgroup>
+                                    <optgroup label="KIFIR">
+                                        <option value="KIFIRapplicantsImport" selected>Iskolai jelentkezők</option>
                                     </optgroup>
                                     <optgroup label="DARI">
                                         <option value="primarySchoolsImport">Köznevelési intézmények adatai</option>

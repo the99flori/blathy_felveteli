@@ -20,13 +20,16 @@
                         </thead>
                         <tbody>
                         @foreach($students as $student)
-                        <tr @if($student->centralExam->isSpecial && $student->files->where('type', 'special_decree')->first()!=NULL) class="table-warning" @elseif($student->centralExam->isSpecial) class="table-danger" @endif>
+                        {{--<tr @if($student->centralExam->isSpecial && $student->files->where('type', 'special_decree')->first()!=NULL) class="table-warning" @elseif($student->centralExam->isSpecial) class="table-danger" @endif> --}}
+                        <tr>
                             <td><a href="{{route('dashboard.student.centralexam.index', $student->id)}}" style="text-decoration: none;"><strong>{{$student->eduId}}</strong><br></a></td>
                             <td>{{$student->name}}</td>
-                            <td>{{$student->bornPlace}}, {{$student->bornDate}}</td>
+                            <td>{{$student->bornPlace}}, {{date("Y.m.d.", strtotime($student->bornDate))}}</td>
                             <td class="text-center">
-                                @if($student->centralExam->hunRoom!=NULL)
-                                    {{$student->centralExam->hunRoom}}
+                                @if(isset($student->meeting->panel->room) && $student->meeting->panel->room!=NULL)
+                                    {{$student->meeting->panel->room}}
+                                @elseif(isset($student->meeting->note))
+                                    <i>{{$student->meeting->note}}</i>
                                 @else
                                     <i>nincs beosztva</i>
                                 @endif

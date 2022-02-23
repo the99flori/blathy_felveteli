@@ -15,7 +15,7 @@
 
 <body class="bg-gradient-light">
 <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
-    <div class="container-fluid"><img src="{{ asset('assets/img/logos/blathy_felirat.png') }}" style="min-width: 100px;max-width: 15%;"><a class="navbar-brand d-none d-md-inline">- Központi írásbeli felvételi&nbsp;tájékoztató felület</a>
+    <div class="container-fluid"><img src="{{ asset('assets/img/logos/blathy_felirat.png') }}" style="min-width: 100px;max-width: 15%;"><a class="navbar-brand d-none d-md-inline">- Felvételi tájékoztató felület</a>
         <ul class="navbar-nav flex-nowrap ml-auto">
             <div class="d-none d-sm-block topbar-divider"></div>
             <li class="nav-item"><a href="{{ route('logout') }}" class="btn btn-secondary btn-icon-split" role="button"><span class="text-white text">Kilépés</span><span class="text-white-50 icon"><i class="fas fa-sign-out-alt"></i></span></a></li>
@@ -51,7 +51,7 @@
                     </tr>
                     <tr>
                         <th>Általános iskola:</th>
-                        <td>{{$student->primarySchool->name}}</td>
+                        <td>@if(isset($student->primarySchool)) {{$student->primarySchool->name}}@endif - ({{$student->primaryOM}})</td>
                     </tr>
                     </tbody>
                 </table>

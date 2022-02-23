@@ -25,7 +25,7 @@
                 @section('sidebar')
 
                 <li class="nav-item"><a class="nav-link @if(Route::currentRouteName() == 'dashboard.index') active @endif" href="{{ route('dashboard.index') }}"><i class="fas fa-tachometer-alt"></i>Adminisztrációs központ</a></li>
-                <li class="nav-item"><a class="nav-link @if(Route::currentRouteName() == 'dashboard.import.get') active @endif" href="{{ route('dashboard.import.get') }}"><i class="fas fa-file-upload"></i><span>Tanulói adatok importálása</span></a></li>
+                <li class="nav-item"><a class="nav-link @if(Route::currentRouteName() == 'dashboard.import.get') active @endif" href="{{ route('dashboard.import.get') }}"><i class="fas fa-file-upload"></i><span>Adatok importálása</span></a></li>
                 <li class="nav-item"><a class="nav-link @if(Route::currentRouteName() == 'dashboard.applies') active @endif" href="{{ route('dashboard.applies') }}"><i class="fas fa-file-signature"></i><span>Tanulók kezelése</span></a></li>
 
                 @show

@@ -16,6 +16,8 @@ use App\Imports\StudentsImport;
 use App\Imports\KOZFELVIRapplicants;
 use App\Imports\primarySchoolsImport;
 use App\Imports\CentralExamTapaScheduleTableImport;
+use App\Imports\OralExamTapaScheduleImport;
+use App\Imports\KIFIRapplicantsImport;
 
 use App\Models\Student;
 use App\Models\StudentLog;
@@ -65,11 +67,17 @@ class AdminController extends Controller
     public function import(ImportRequest $request)
     {
         switch ($request->input('importType')){
+            case "OralExamTapaSchedule":
+                Excel::import(new OralExamTapaScheduleImport,$request->file('file'));
+                break;
             case "CentralExamTapaScheduleTable":
                 Excel::import(new CentralExamTapaScheduleTableImport,$request->file('file'));
                 break;
             case "KOZFELVIRapplicants":
                 Excel::import(new KOZFELVIRapplicants,$request->file('file'));
+                break;
+                case "KIFIRapplicantsImport":
+                Excel::import(new KIFIRapplicantsImport,$request->file('file'));
                 break;
             case "StudentsImport":
                 Excel::import(new StudentsImport,$request->file('file'));
