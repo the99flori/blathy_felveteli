@@ -24,10 +24,10 @@
             <ul class="navbar-nav text-light" id="accordionSidebar">
                 @section('sidebar')
 
-                <li class="nav-item"><a class="nav-link @if(Route::currentRouteName() == 'dashboard.index') active @endif" href="{{ route('dashboard.index') }}"><i class="fas fa-tachometer-alt"></i>Adminisztrációs központ</a></li>
-                <li class="nav-item"><a class="nav-link @if(Route::currentRouteName() == 'dashboard.import.get') active @endif" href="{{ route('dashboard.import.get') }}"><i class="fas fa-file-upload"></i><span>Adatok importálása</span></a></li>
-                <li class="nav-item"><a class="nav-link @if(Route::currentRouteName() == 'dashboard.applies') active @endif" href="{{ route('dashboard.applies') }}"><i class="fas fa-file-signature"></i><span>Tanulók kezelése</span></a></li>
-
+                        <li class="nav-item"><a class="nav-link @if(Route::currentRouteName() == 'dashboard.index') active @endif" href="{{ route('dashboard.index')}}"><i class="fas fa-tachometer-alt"></i>Adminisztrációs központ</a></li>
+                        <li class="nav-item"><a class="nav-link @if(Route::currentRouteName() == 'dashboard.import.get') active @endif" href="{{ route('dashboard.import.get')}}"><i class="fas fa-file-upload"></i><span>Adatok importálása</span></a></li>
+                        <li class="nav-item"><a class="nav-link @if(Route::currentRouteName() == 'dashboard.applies') active @endif" href="{{ route('dashboard.applies')}}"><i class="fas fa-file-signature"></i><span>Tanulók kezelése</span></a></li>
+                        <li class="nav-item"><a class="nav-link @if(Route::currentRouteName() == 'dashboard.panels.list') active @endif" href="{{ route('dashboard.panels.list')}}"><i class="fas fa-layer-group"></i><span>Bizottságok</span></a></li>
                 @show
 
             </ul>
@@ -57,11 +57,22 @@
         </div>
         <footer class="bg-white sticky-footer">
             <div class="container my-auto">
-                <div class="text-center my-auto copyright"><span style="line-height: 15px;">Copyright © Bláthy 2021<br>Fejlesztette: Demecs Flórián és Harangozó Zsolt<br></span></div>
+                <div class="text-center my-auto copyright"><span style="line-height: 15px;">Copyright © Bláthy 2022<br>Fejlesztette: Demecs Flórián és Harangozó Zsolt<br></span></div>
             </div>
         </footer>
     </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
 </div>
+
+<script>
+    var minimalizeMenu = function() {
+        if ($(window).width() < 960) {
+            document.getElementById("sidebarToggle").click();
+        }
+    }
+    window.onload = minimalizeMenu;
+    window.onresize = minimalizeMenu;
+</script>
+
 <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
 <script src="{{ asset('assets/bootstrap/js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('assets/js/chart.min.js') }}"></script>

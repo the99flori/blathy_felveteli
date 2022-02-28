@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Meeting;
+use App\Models\Panel;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 use App\Http\Requests\ImportRequest;
 use App\Http\Requests\StudentUploadRequest;
@@ -18,6 +21,7 @@ use App\Imports\primarySchoolsImport;
 use App\Imports\CentralExamTapaScheduleTableImport;
 use App\Imports\OralExamTapaScheduleImport;
 use App\Imports\KIFIRapplicantsImport;
+use App\Imports\PrimaryPointsImport;
 
 use App\Models\Student;
 use App\Models\StudentLog;
@@ -31,32 +35,38 @@ class AdminController extends Controller
     public function dashboardIndex(){
         $all = Student::select('eduid')->groupBy('eduid')->get()->count();
         $success = StudentLog::distinct()->select('eduid')->groupBy('eduid')->get()->count();
+        $mypanel = Panel::find(Auth::user()->panels)->first();
 
         return view('dashboard.index', [
             'success' => $success,
             'all' => $all,
+            'mypanel' => $mypanel,
         ]);
     }
 
-    public function getStudentOralExamInfoIndex(){
-
-        return view('dashboard.student.oralexam.index');
-    }
-
-    public function getStudentOralExamInfoRequest(Request $request){
-        $student = Student::where('eduId', $request->input('eduid'))->first();
-
-        if($student == NULL) return redirect()->route('dashboard.student.oralexam.index')->withErrors(['msg' => 'Nem található tanuló ilyen oktatási azonosítóval!']);
-
-        return redirect()->route('dashboard.student.oralexam.info', ['id' => $student->id]);
-    }
-
-    public function getStudentOralExamInfo($id){
+    public function getStudentOralExamIndex($id)
+    {
         $student = Student::where('id', $id)->first();
 
-        return view('dashboard.student.oralexam.info', [
+
+        return view('dashboard.student.oralexam.index', [
             'student' => $student,
         ]);
+
+    }
+
+    public function getStudentOralExamDatetimeChange(Request $request){
+        $student = Student::find($request->input('studentid'));
+
+        $student->meeting->datetime = $request->input('datetime');
+        $panel = Panel::where('room', $request->input('room'))->first();
+
+        if($panel == NULL) return redirect()->route('dashboard.student.oralexam.index', ['id' => $student->id])->withErrors(['msg' => 'Nem található a bizottság!']);
+
+        $student->meeting->panel_id = $panel->id;
+        $student->meeting->save();
+
+        return redirect()->route('dashboard.student.oralexam.index', ['id' => $student->id])->withErrors(['info' => 'Sikeres módosítás!']);
     }
 
     public function importView()
@@ -84,6 +94,9 @@ class AdminController extends Controller
                 break;
             case "primarySchoolsImport":
                 Excel::import(new primarySchoolsImport,$request->file('file'));
+                break;
+            case "PrimaryPointsImport":
+                Excel::import(new PrimaryPointsImport,$request->file('file'));
                 break;
         }
 
@@ -164,6 +177,28 @@ class AdminController extends Controller
         return view('dashboard.studentlog', [
             'logs' => $logs,
         ]);
+    }
+
+    public function panelsList(){
+        $panels = Panel::orderBy('room')->get();
+
+        return view('dashboard.panels.list', [
+            'panels' => $panels,
+
+        ]);
+    }
+
+    public function panelsIndex($id)
+    {
+        $panel = Panel::find($id);
+        $meetings = Meeting::where('panel_id', $id)->get();
+
+
+        return view('dashboard.panels.index', [
+            'meetings' => $meetings,
+            'panel' => $panel,
+        ]);
+
     }
 
 

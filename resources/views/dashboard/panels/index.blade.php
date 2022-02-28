@@ -1,10 +1,10 @@
 @extends('dashboard.layout')
 
-@section('title', 'Tanulók kezelése')
+@section('title', 'Bizottság '.$panel->room)
 
 @section('content')
     <div class="container-fluid">
-        <h3 class="text-dark mb-4">Tanulók kezelése</h3>
+        <h3 class="text-dark mb-4">Bizottság {{$panel->room}}</h3>
         <div class="card shadow">
             <div class="card-body">
                 <p class="text-warning card-text"><strong><em>Egyszerre csak egy fajta szűrés lehetséges!</em></strong></p>
@@ -15,25 +15,14 @@
                             <th class="justify-content-center">Oktatási azonosító<br><input class="form-control-sm" type="text" id="filterEduID" placeholder="KERESÉS" onkeyup="filterString(&#39;filterEduID&#39;,0)"><br></th>
                             <th>Tanuló neve<br><input class="form-control-sm" type="text" id="filterName" placeholder="KERESÉS" onkeyup="filterString('filterName',1)"><br></th>
                             <th>Időpont<br><input class="form-control-sm" type="text" id="filterBorn" placeholder="KERESÉS" onkeyup="filterString('filterBorn',2)"><br></th>
-                            <th class="text-center">Terembeosztás<br><input class="form-control-sm" type="text" id="filterRoom" placeholder="KERESÉS" onkeyup="filterString('filterRoom',3)"><br></th>
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($students as $student)
-                        {{--<tr @if($student->centralExam->isSpecial && $student->files->where('type', 'special_decree')->first()!=NULL) class="table-warning" @elseif($student->centralExam->isSpecial) class="table-danger" @endif> --}}
+                        @foreach($meetings as $meeting)
                         <tr>
-                            <td><a href="{{route('dashboard.student.oralexam.index', $student->id)}}" style="text-decoration: none;"><strong>{{$student->eduId}}</strong><br></a></td>
-                            <td>{{$student->name}}</td>
-                            <td>@isset($student->meeting->datetime){{date("Y.m.d. H:i", strtotime($student->meeting->datetime))}}@endisset</td>
-                            <td class="text-center">
-                                @if(isset($student->meeting->panel->room) && $student->meeting->panel->room!=NULL)
-                                    {{$student->meeting->panel->room}}
-                                @elseif(isset($student->meeting->note))
-                                    <i>{{$student->meeting->note}}</i>
-                                @else
-                                    <i>nincs beosztva</i>
-                                @endif
-                            </td>
+                            <td><a href="{{route('dashboard.student.oralexam.index', $meeting->student->id)}}" style="text-decoration: none;"><strong>{{$meeting->student->eduId}}</strong><br></a></td>
+                            <td>{{$meeting->student->name}}</td>
+                            <td>{{date("Y.m.d. H:i", strtotime($meeting->datetime))}}</td>
                         </tr>
                         @endforeach
                         </tbody>
