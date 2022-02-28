@@ -102,8 +102,11 @@
                 <p class="text-justify card-text">Az általános iskolai eredmények és a központi írásbeli eredmények alapján <strong class="text-danger">nem érte el a felvételi tájékoztatóban meghatározott minimum szintet.</strong> Szóbeli felvételire nem kerül behívásra.</p>
             @elseif($student->meeting->note=="NemMAX")
                 <p class="text-justify card-text">Gratulálunk! Az általános iskolai eredmények és a központi írásbeli eredmények alapján mentesül a szóbeli felvételi alól. A szóbeli felvételi vizsgarészre a <strong class="text-success">maximális 25 pont</strong> kerül beszámításra.</p>
-        </div>
         @endif
+        </div>
+        <div class="card-footer text-center">
+            <p class="text-center" style="margin-bottom: 0px;">Probléma vagy kérdés esetén írjon e-mailt a <a class="text-danger" href="mailto:felveteli@blathy.info"><strong>felveteli@blathy.info</strong></a> címre!</p>
+        </div>
     </div>
 
 </div>

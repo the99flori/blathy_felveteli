@@ -24,6 +24,7 @@
                                     <optgroup label="BLÁTHY">
                                         <option value="CentralExamTapaScheduleTable">Írásbeli beosztás (TAPA)</option>
                                         <option value="OralExamTapaSchedule">Szóbeli beosztás (TAPA)</option>
+                                        <option value="PrimaryPointsImport">Hozott eredmények</option>
                                     </optgroup>
                                     <optgroup label="KÖZFELVIR">
                                         <option value="KOZFELVIRapplicants">Vizsgajelentkezők</option>

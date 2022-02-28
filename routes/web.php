@@ -59,15 +59,19 @@ Route::prefix('dashboard')->name('dashboard.')->middleware('auth')->group(functi
 
     Route::get('/applies', [AdminController::class, 'appliesIndex'])->name('applies');
 
+    Route::prefix('panels')->name('panels.')->group(function () {
+        Route::get('/', [AdminController::class, 'panelsList'])->name('list');
+        Route::get('/{id}', [AdminController::class, 'panelsIndex'])->name('index');
+    });
+
     Route::prefix('student')->name('student.')->group(function () {
 
         Route::post('/fileupload', [AdminController::class, 'postStudentFileupload'])->name('fileupload');
         Route::get('/filedelete/{id}', [AdminController::class, 'deleteStudentFile'])->name('filedelete');
 
         Route::prefix('oralexam')->name('oralexam.')->group(function () {
-            Route::get('/', [AdminController::class, 'getStudentOralExamInfoIndex'])->name('index');
-            Route::post('/', [AdminController::class, 'getStudentOralExamInfoRequest'])->name('request');
-            Route::get('/{id}', [AdminController::class, 'getStudentOralExamInfo'])->name('info');
+            Route::get('/{id}', [AdminController::class, 'getStudentOralExamIndex'])->name('index');
+            Route::post('/change', [AdminController::class, 'getStudentOralExamDatetimeChange'])->name('change');
         });
 
         Route::prefix('centralexam')->name('centralexam.')->group(function () {

@@ -23,6 +23,22 @@
             </div>
         </a>
     </div>
+    @if($mypanel != NULL)
+    <div class="col-md-6 col-xl-3 mb-4"><a class="text-decoration-none text-success" href="{{route('dashboard.panels.index', $mypanel->id)}}">
+            <div class="card shadow border-left-success py-2">
+                <div class="card-body">
+                    <div class="row align-items-center no-gutters">
+                        <div class="col me-2">
+                            <div class="fw-bold text-xs mb-1"><span class="text-uppercase">Bizottságom</span></div>
+                            <div class="text-dark fw-bold h5 mb-0"><span>{{$mypanel->room}}</span></div>
+                        </div>
+                        <div class="col-auto"><i class="fas fa-users fa-2x"></i></div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+    @endif
 </div>
 
 @endsection
