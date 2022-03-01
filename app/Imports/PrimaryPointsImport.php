@@ -7,7 +7,7 @@ use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Imports\HeadingRowFormatter;
 
 use App\Models\Student;
-use App\Models\PrimaryPoint;
+use App\Models\primaryPoint;
 use App\Models\centralExam;
 
 HeadingRowFormatter::default('none');

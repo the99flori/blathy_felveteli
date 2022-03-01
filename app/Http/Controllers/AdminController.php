@@ -35,7 +35,7 @@ class AdminController extends Controller
     public function dashboardIndex(){
         $all = Student::select('eduid')->groupBy('eduid')->get()->count();
         $success = StudentLog::distinct()->select('eduid')->groupBy('eduid')->get()->count();
-        $mypanel = Panel::find(Auth::user()->panels)->first();
+        $mypanel = Panel::find(Auth::user()->panels->first()->id);
 
         return view('dashboard.index', [
             'success' => $success,
