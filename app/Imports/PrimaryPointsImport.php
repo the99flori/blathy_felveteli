@@ -2,6 +2,7 @@
 
 namespace App\Imports;
 
+use App\Models\primarySchool;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Imports\HeadingRowFormatter;
@@ -29,7 +30,7 @@ class PrimaryPointsImport implements ToModel, WithHeadingRow
                     'mathResult' => $row['matek PSZ'] == NULL ? 0 : $row['matek PSZ'],
             ]);
 
-            PrimaryPoint::updateOrCreate(['student_id' =>  $student->id], [
+            primaryPoint::updateOrCreate(['student_id' =>  $student->id], [
                 'lit_7' => $row['irodalom 7'],
                 'lit_8h' => $row['irodalom 8F'],
                 'hun_7' => $row['nyelvtan 7'],
