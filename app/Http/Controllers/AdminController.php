@@ -35,12 +35,10 @@ class AdminController extends Controller
     public function dashboardIndex(){
         $all = Student::select('eduid')->groupBy('eduid')->get()->count();
         $success = StudentLog::distinct()->select('eduid')->groupBy('eduid')->get()->count();
-        $mypanel = Panel::find(Auth::user()->panels->first()->id);
 
         return view('dashboard.index', [
             'success' => $success,
             'all' => $all,
-            'mypanel' => $mypanel,
         ]);
     }
 
@@ -191,7 +189,7 @@ class AdminController extends Controller
     public function panelsIndex($id)
     {
         $panel = Panel::find($id);
-        $meetings = Meeting::where('panel_id', $id)->get();
+        $meetings = Meeting::where('panel_id', $id)->orderBy('datetime')->get();
 
 
         return view('dashboard.panels.index', [

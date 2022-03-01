@@ -82,7 +82,7 @@
                                     <tbody>
                                     <tr>
                                         <th>Időpont:</th>
-                                        <td><input class="form-control" type="datetime-local" required value="{{date("Y-m-d\TH:i", strtotime($student->meeting->datetime))}}" min="2022-02-28T12:30" max="2022-03-03T17:00" name="datetime" /></td>
+                                        <td><input class="form-control" type="datetime-local" required value="{{date("Y-m-d\TH:i", strtotime($student->meeting->datetime))}}" name="datetime" /></td>
                                     </tr>
                                     <tr>
                                         <th>Terem:</th>
