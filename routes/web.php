@@ -7,6 +7,7 @@ use App\Http\Controllers\AuthController;
 use \App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\AdminController;
+use Illuminate\Support\Facades\Artisan;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +21,7 @@ use App\Http\Controllers\AdminController;
 */
 
 Route::get('/', function(){
-    return redirect('/schedule');
+    return redirect('/result');
 })->name('home');
 
 /* Authentication */
@@ -38,12 +39,15 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 //Route::get('/student/file/{id}', [StudentController::class, 'getFile'])->name('studentfile');
 
-Route::get('/schedule/login', [StudentController::class, 'schedule_login'])->name('schedule');
-Route::post('/schedule', [StudentController::class, 'schedule_login_post'])->name('schedule.login');
+//Route::get('/schedule/login', [StudentController::class, 'schedule_login'])->name('schedule');
+//Route::post('/schedule', [StudentController::class, 'schedule_login_post'])->name('schedule.login');
 
-Route::get('/schedule', [StudentController::class, 'schedule_index'])->name('schedule.index');
+//Route::get('/schedule', [StudentController::class, 'schedule_index'])->name('schedule.index');
 
-//Route::get('/school', [StudentController::class, 'getSchoolData'])->name('omschools')->middleware('auth');
+Route::get('/result/login', [StudentController::class, 'result_login'])->name('result');
+Route::post('/result', [StudentController::class, 'result_login_post'])->name('result.login');
+
+Route::get('/result', [StudentController::class, 'result_index'])->name('result.index');
 
 /* AdminController */
 Route::prefix('dashboard')->name('dashboard.')->middleware('auth')->group(function () {
@@ -76,6 +80,18 @@ Route::prefix('dashboard')->name('dashboard.')->middleware('auth')->group(functi
 
         Route::prefix('centralexam')->name('centralexam.')->group(function () {
             Route::get('/{id}', [AdminController::class, 'getStudentCentralExamIndex'])->name('index');
+        });
+    });
+
+    /* Maintenance mode form URL */
+    Route::prefix('app')->group(function () {
+        Route::get('/up', function (){
+            Artisan::call('up');
+            return "UP!";
+        });
+        Route::get('/down/{secret}', function ($secret){
+            Artisan::call('down', ['--secret' => $secret]);
+            return "DOWN! (".$secret.")";
         });
     });
 });

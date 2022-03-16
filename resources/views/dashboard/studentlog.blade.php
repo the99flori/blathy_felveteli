@@ -21,7 +21,7 @@
                         <tbody>
                         @foreach($logs as $log)
                         <tr>
-                            <td><a href="{{route('dashboard.student.centralexam.index', $log->id)}}" style="text-decoration: none;"><strong>{{$log->eduId}}</strong><br></a></td>
+                            <td><a href="{{route('dashboard.student.oralexam.index', $log->id)}}" style="text-decoration: none;"><strong>{{$log->eduId}}</strong><br></a></td>
                             <td>{{$log->name}}</td>
                             <td>{{$log->bornPlace}}, {{date("Y.m.d.", strtotime($log->bornDate))}}</td>
                             <td class="text-center">{{$log->count}}</td>

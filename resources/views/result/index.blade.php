@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Felvételi eredmény - Bláthy</title>
+    <title>Felvételi - Bláthy</title>
     <link rel="icon" href="{{ asset('assets/img/logos/blathy_icon.png') }}">
     <link rel="stylesheet" href="{{ asset('assets/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
@@ -15,54 +15,112 @@
 
 <body class="bg-gradient-light">
 <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
-    <div class="container-fluid"><img src="{{ asset('assets/img/logos/blathy_felirat.png') }}" style="min-width: 100px;max-width: 15%;"><a class="navbar-brand">- Felvételi eredmény</a>
+    <div class="container-fluid"><img src="{{ asset('assets/img/logos/blathy_felirat.png') }}" style="min-width: 100px;max-width: 15%;"><a class="navbar-brand d-none d-md-inline">- Felvételi tájékoztató felület</a>
         <ul class="navbar-nav flex-nowrap ml-auto">
             <div class="d-none d-sm-block topbar-divider"></div>
-            <li class="nav-item"><a href="{{ route('result') }}" class="btn btn-secondary btn-icon-split" role="button"><span class="text-white text">Kilépés</span><span class="text-white-50 icon"><i class="fas fa-sign-out-alt"></i></span></a></li>
+            <li class="nav-item"><a href="{{ route('logout') }}" class="btn btn-secondary btn-icon-split" role="button"><span class="text-white text">Kilépés</span><span class="text-white-50 icon"><i class="fas fa-sign-out-alt"></i></span></a></li>
         </ul>
     </div>
 </nav>
 <div class="container" style="max-width: 750px;">
-    <div class="card shadow my-5 border-left-primary">
+
+    <div class="card shadow my-5 border-left-success">
         <div class="card-header py-3">
-            <p class="text-primary m-0 font-weight-bold">{{$student->name}} ({{$student->born}}) - {{$student->eduId}}</p>
+            <div class="row">
+                <div class="col-auto align-self-center"><i class="fa fa-file-text bg-success border rounded-circle shadow" style="color: var(--white);padding: 10px;font-size: 20px;"></i></div>
+                <div class="col align-self-center">
+                    <p class="text-success d-inline m-0 font-weight-bold">Jelentkezés</p>
+                </div>
+            </div>
         </div>
-        <div class="card-body">
-            <p class="text-justify card-text">A <strong>0023 tanulmányi területre </strong><em>(5 éves technikumi képzés az informatika és távközlés ágazatban)</em><strong> 96 tanulót veszünk fel</strong> a 2021/2022. tanévben a 9. évfolyamra, az 557 jelentkezőből.</p>
-            <p class="text-justify card-text">A <strong>0025 tanulmányi területre </strong><em>(1+5 éves, a 9/ny évfolyamon angol nyelvi előkészítő tanévvel induló technikumi képzés az informatika és távközlés ágazatban)</em><strong> 32 tanulót veszünk fel</strong> a 2021/2022. tanévben a 9/ny évfolyamra, a 378 jelentkezőből.</p>
-            <p class="text-justify card-text">Az előző évek tapasztalata alapján, a több intézménybe és több tanulmányi területre való jelentkezések miatt, <strong>a felvehető tanulólétszám 3-3,5-szerese körüli helyről még felvételt nyertek a tanulók iskolánkba</strong>.</p>
-            <div class="table-responsive table-borderless">
-                <table class="table table-bordered">
-                    <tbody class="text-primary">
+        <div class="card-body" style="padding-bottom: 5px;">
+            <p class="text-center card-text">Az alábbi tanuló jelentkezése beérkezett az intézményünkben:</p>
+            <div class="table-responsive table-borderless text-left">
+                <table class="table table-bordered table-sm">
+                    <tbody>
                     <tr>
-                        <th class="text-uppercase">A felvételi eljárásban elért<br>összesített eredmény (0-100):</th>
-                        @if(is_numeric($student->result->sumpoint))
-                            <td class="align-middle">{{$student->result->sumpoint}} pont</td>
-                        @else
-                            <td class="align-middle">{{$student->result->sumpoint}}</td>
-                        @endif
+                        <th style="width: 30%;">Név:</th>
+                        <td>{{$student->name}}</td>
                     </tr>
                     <tr>
-                        <th class="text-uppercase">0023 tanulmányi terület:</th>
-                        @if(is_numeric($student->result->tt0023))
-                        <td>{{$student->result->tt0023}}. hely a rangsorban</td>
-                        @else
-                        <td>{{$student->result->tt0023}}</td>
-                        @endif
+                        <th>Születési hely, idő:</th>
+                        <td>{{$student->bornPlace}}, {{date("Y.m.d.", strtotime($student->bornDate))}}</td>
                     </tr>
                     <tr>
-                        <th class="text-uppercase">0025 tanulmányi terület:</th>
-                        @if(is_numeric($student->result->tt0025))
-                        <td>{{$student->result->tt0025}}. hely a rangsorban</td>
-                        @else
-                        <td>{{$student->result->tt0025}}</td>
-                        @endif
+                        <th>Oktatási azonosító:</th>
+                        <td>{{$student->eduId}}</td>
                     </tr>
+                    @isset($student->primarySchool)
+                    <tr>
+                        <th>Általános iskola:</th>
+                        <td> {{$student->primarySchool->name}}</td>
+                    </tr>
+                    @endisset
                     </tbody>
                 </table>
             </div>
         </div>
+        <div class="card-footer text-center">
+            <p class="text-center" style="margin-bottom: 0px;">A következő tanulmányi terület(ek)re jelentkezett:<br></p>
+            <div class="custom-control custom-control-inline custom-switch"><input class="custom-control-input" type="checkbox" id="0023" @if(($student->n23)==true) checked="" @endif disabled=""><label class="custom-control-label" for="mathExam">0023</label></div>
+            <div class="custom-control custom-control-inline custom-switch"><input class="custom-control-input" type="checkbox" id="0025" @if(($student->n25)==true) checked="" @endif disabled=""><label class="custom-control-label" for="hunExam">0025</label></div>
+        </div>
     </div>
+    <div class="card shadow my-5 border-left-primary">
+        <div class="card-header py-3">
+            <div class="row">
+                <div class="col-auto align-self-center"><i class="fas fa-list bg-primary border rounded-circle shadow" style="padding: 10px;font-size: 20px;color: var(--white);"></i></div>
+                <div class="col align-self-center">
+                    <p class="text-primary d-inline m-0 fw-bold"><strong>Jelentkezők felvételi jegyzéke</strong></p>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            @if (!isset($student->result) || $student->result->sumpoint == NULL)
+                <p class="lead text-center text-uppercase card-text"><strong>Rangsorolás folyamatban!</strong><br /></p>
+            @elseif ($student->result->sumpoint == "NORAL")
+                <p class="text-justify card-text"><strong class="text-danger">Nem felvehető.</strong> Az előzetesen meghirdetett szóbeli meghallgatáson nem vett részt.</p>
+            @elseif($student->result->sumpoint != NULL)
+                @isset($student->result->tt0023)<p class="text-justify card-text">A <strong>0023 tanulmányi területre </strong><em>(5 éves technikumi képzés az informatika és távközlés ágazatban)</em><strong> 96 tanulót veszünk fel</strong> a 2022/2023. tanévben a 9. évfolyamra, az 563 jelentkezőből.</p>@endisset
+                @isset($student->result->tt0025)<p class="text-justify card-text">A <strong>0025 tanulmányi területre </strong><em>(1+5 éves, a 9/ny évfolyamon angol nyelvi előkészítő tanévvel induló technikumi képzés az informatika és távközlés ágazatban)</em><strong> 32 tanulót veszünk fel</strong> a 2022/2023. tanévben a 9/ny évfolyamra, a 347 jelentkezőből.</p>@endisset
+                <p class="text-justify card-text">Az előző évek tapasztalata alapján, a több intézménybe és több tanulmányi területre való jelentkezések miatt, <strong>a felvehető tanulólétszám 3-3,5-szerese körüli helyről még felvételt nyertek a tanulók iskolánkba</strong>.</p>
+                <div class="table-responsive">
+                    <table class="table">
+                        <tr>
+                            <th class="text-uppercase">Összesített eredmény (0-100):</th>
+                            <td>{{$student->result->sumpoint}} pont</td>
+                        </tr>
+                        <tbody>
+                        @isset($student->result->tt0023)
+                        <tr>
+                            <th class="text-uppercase">0023 tanulmányi terület:</th>
+                            @if(is_numeric($student->result->tt0023))
+                                <td>{{$student->result->tt0023}}. hely a rangsorban</td>
+                            @else
+                                <td class="text-justify"><strong class="text-danger">Nem felvehető.</strong> Az általános iskolai eredmények és a központi írásbeli eredmények alapján nem érte el a felvételi tájékoztatóban meghatározott minimum szintet.</td>
+                            @endif
+                        </tr>
+                        @endisset
+                        @isset($student->result->tt0025)
+                        <tr>
+                            <th class="text-uppercase">0025 tanulmányi terület:</th>
+                            @if(is_numeric($student->result->tt0025))
+                                <td>{{$student->result->tt0025}}. hely a rangsorban</td>
+                            @else
+                                <td class="text-justify"><strong class="text-danger">Nem felvehető.</strong> Az általános iskolai eredmények és a központi írásbeli eredmények alapján nem érte el a felvételi tájékoztatóban meghatározott minimum szintet.</td>
+                            @endif
+                        </tr>
+                        @endisset
+                        </tbody>
+                    </table>
+                </div>
+            @endif
+        </div>
+        <div class="card-footer text-center">
+            <p class="text-center" style="margin-bottom: 0px;">A felvételivel kapcsolatos kéréseket a <a href="mailto:felveteli@blathy.info"><strong>felveteli@blathy.info</strong></a> címre kell megküldeni!</p>
+        </div>
+    </div>
+
 </div>
 <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
 <script src="{{ asset('assets/bootstrap/js/bootstrap.min.js') }}"></script>
