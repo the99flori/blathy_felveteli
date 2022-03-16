@@ -54,6 +54,51 @@
                         <div class="custom-control custom-control-inline custom-switch"><input class="custom-control-input" type="checkbox" id="0025" @if(($student->n25)==true) checked="" @endif disabled=""><label class="custom-control-label" for="hunExam">0025</label></div>
                     </div>
                 </div>
+                @if(isset($student->result))
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="text-primary fw-bold m-0">Előzetes felvételi rangsor</h6>
+                        </div>
+                        <div class="card-body">
+                            @if ($student->result->sumpoint == NULL)
+                                <p class="lead text-center text-uppercase card-text"><strong>Rangsorolás folyamatban!</strong><br /></p>
+                            @elseif ($student->result->sumpoint == "NORAL")
+                                <p class="text-justify card-text">Az előzetesen meghirdetett szóbeli meghallgatáson nem vett részt, <strong class="text-danger">a felvételi követelményeket nem teljesítette, ezért nem felvehető!</strong></p>
+                            @elseif($student->result->sumpoint != NULL)
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <tr>
+                                            <th class="text-uppercase">Összesített eredmény (0-100):</th>
+                                            <td>{{$student->result->sumpoint}} pont</td>
+                                        </tr>
+                                        <tbody>
+                                        @isset($student->result->tt0023)
+                                            <tr>
+                                                <th class="text-uppercase">0023 tanulmányi terület:</th>
+                                                @if(is_numeric($student->result->tt0023))
+                                                    <td>{{$student->result->tt0023}}. hely a rangsorban</td>
+                                                @else
+                                                    <td class="text-justify">Az általános iskolai eredmények és a központi írásbeli eredmények alapján <strong class="text-danger">nem érte el a felvételi tájékoztatóban meghatározott minimum szintet.</strong></td>
+                                                @endif
+                                            </tr>
+                                        @endisset
+                                        @isset($student->result->tt0025)
+                                            <tr>
+                                                <th class="text-uppercase">0025 tanulmányi terület:</th>
+                                                @if(is_numeric($student->result->tt0025))
+                                                    <td>{{$student->result->tt0025}}. hely a rangsorban</td>
+                                                @else
+                                                    <td class="text-justify">Az előzetesen meghírdetett szóbeli meghallgatáson nem vett részt, <strong class="text-danger">a felvételi követelményeket nem teljesítette!</strong></td>
+                                                @endif
+                                            </tr>
+                                        @endisset
+                                        </tbody>
+                                    </table>
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+                @endif
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
                         <p class="text-primary m-0 fw-bold">Szóbeli beosztása</p>

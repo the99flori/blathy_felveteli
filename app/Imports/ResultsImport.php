@@ -3,13 +3,16 @@
 namespace App\Imports;
 
 use Maatwebsite\Excel\Concerns\ToModel;
-use Maatwebsite\Excel\Concerns\WithCustomCsvSettings;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Maatwebsite\Excel\Imports\HeadingRowFormatter;
 
 use App\Models\Student;
 use App\Models\Result;
 
-class ResultsImport implements ToModel, WithHeadingRow, WithCustomCsvSettings
+
+HeadingRowFormatter::default('none');
+
+class ResultsImport implements ToModel, WithHeadingRow
 
 {
     /**
@@ -17,34 +20,34 @@ class ResultsImport implements ToModel, WithHeadingRow, WithCustomCsvSettings
     *
     * @return \Illuminate\Database\Eloquent\Model|null
     */
-    public function getCsvSettings(): array
-    {
-        return [
-            'delimiter' => ";"
-        ];
-    }
+
 
     public function model(array $row)
     {
-        $student = Student::create([
-            'name' => $row['name'],
-            'eduId' => $row['eduid'],
-            'primaryOM' => 0,
-            'born' => $row['born'],
-            'email' => "",
-            'sign' => ($row['sign'] == NULL) ? NULL : strtoupper($row['sign']),
-            'n23' => 0,
-            'n25' => 0,
-        ]);
 
-        Result::create([
-            'student_id' => $student->id,
-            'tt0023' => $row['tt0023'],
-            'tt0025' => $row['tt0025'],
-            'sumpoint' => $row['sumpoint'],
-        ]);
+        if(($student = Student::where('eduId', $row['Oktatási azonosító'])->first())!=NULL){
+            $result = Result::updateOrCreate(
+                ['student_id' => $student->id]
+            );
 
+            $result->tt0023 = NULL;
+            $result->tt0025 = NULL;
 
-        return $student;
+            if(($row['szóbeli PSZ'] == "-" && $row["Felvételi összpont SZÁMÍTOTT"] == "0")){
+                $result->sumpoint = "NORAL";
+            }
+            elseif ($row["Felvételi összpont SZÁMÍTOTT"] != "") {
+                $result->sumpoint = str_replace('.', ',', $row["Felvételi összpont SZÁMÍTOTT"]);
+
+                if($row["N23"] != "") $result->tt0023 = $row["N23"];
+                if($row["N25"] != "") $result->tt0025 = $row["N25"];
+            }
+
+            $result->save();
+
+            return $student;
+        }
+
+        return NULL;
     }
 }
