@@ -66,6 +66,30 @@
             <div class="custom-control custom-control-inline custom-switch"><input class="custom-control-input" type="checkbox" id="0025" @if(($student->n25)==true) checked="" @endif disabled=""><label class="custom-control-label" for="hunExam">0025</label></div>
         </div>
     </div>
+    @if($student->result->final != NULL)
+    <div class="card shadow my-5 border-left-primary">
+        <div class="card-header py-3">
+            <div class="row">
+                <div class="col-auto align-self-center"><i class="fas fa-list bg-primary border rounded-circle shadow" style="padding: 10px;font-size: 20px;color: var(--white);"></i></div>
+                <div class="col align-self-center">
+                    <p class="text-primary d-inline m-0 fw-bold"><strong>Egyeztetett felvételi jegyzék</strong></p>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            @if ($student->result->final == "0000")
+                <p class="text-center card-text"><strong class="text-danger text-uppercase">Nem nyert felvételt</strong> a BMSZC Bláthy Ottó Titusz Informatikai Technikumba.</p>
+            @elseif ($student->result->final == "0023")
+                    <p class="text-center card-text"><strong class="text-success text-uppercase">Felvételt nyert</strong> a BMSZC Bláthy Ottó Titusz Informatikai Technikumba, a <strong>0023</strong> (technikum, 5 évfolyam, informatika és távközlés ágazat) tanulmányi területre.</p>
+            @elseif ($student->result->final == "0025")
+                <p class="text-center card-text"><strong class="text-success text-uppercase">Felvételt nyert</strong> a BMSZC Bláthy Ottó Titusz Informatikai Technikumba, a <strong>0025</strong>  (technikum, angol nyelvi előkészítő évfolyam + 5 évfolyam, informatika és távközlés ágazat) tanulmányi területre.</p>
+            @endif
+        </div>
+        <div class="card-footer text-center">
+            <p class="text-center" style="margin-bottom: 0px;">A felvételivel kapcsolatos kérdéseket a <a href="mailto:felveteli@blathy.info"><strong>felveteli@blathy.info</strong></a> címre várjuk!</p>
+        </div>
+    </div>
+    @else
     <div class="card shadow my-5 border-left-primary">
         <div class="card-header py-3">
             <div class="row">
@@ -120,6 +144,7 @@
             <p class="text-center" style="margin-bottom: 0px;">A felvételivel kapcsolatos kéréseket a <a href="mailto:felveteli@blathy.info"><strong>felveteli@blathy.info</strong></a> címre kell megküldeni!</p>
         </div>
     </div>
+    @endif
 
 </div>
 <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
