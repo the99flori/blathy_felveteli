@@ -23,6 +23,7 @@ use App\Imports\OralExamTapaScheduleImport;
 use App\Imports\KIFIRapplicantsImport;
 use App\Imports\PrimaryPointsImport;
 use App\Imports\ResultsImport;
+use App\Imports\FinalResultsImport;
 
 use App\Models\Student;
 use App\Models\StudentLog;
@@ -76,6 +77,9 @@ class AdminController extends Controller
     public function import(ImportRequest $request)
     {
         switch ($request->input('importType')){
+            case "FinalResultsImport":
+                Excel::import(new FinalResultsImport,$request->file('file'));
+                break;
             case "ResultsImport":
                 Excel::import(new ResultsImport,$request->file('file'));
                 break;

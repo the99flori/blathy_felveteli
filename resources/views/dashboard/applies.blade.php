@@ -14,8 +14,8 @@
                         <tr>
                             <th class="justify-content-center">Oktatási azonosító<br><input class="form-control-sm" type="text" id="filterEduID" placeholder="KERESÉS" onkeyup="filterString(&#39;filterEduID&#39;,0)"><br></th>
                             <th>Tanuló neve<br><input class="form-control-sm" type="text" id="filterName" placeholder="KERESÉS" onkeyup="filterString('filterName',1)"><br></th>
-                            <th>Időpont<br><input class="form-control-sm" type="text" id="filterBorn" placeholder="KERESÉS" onkeyup="filterString('filterBorn',2)"><br></th>
-                            <th class="text-center">Terembeosztás<br><input class="form-control-sm" type="text" id="filterRoom" placeholder="KERESÉS" onkeyup="filterString('filterRoom',3)"><br></th>
+                            <!--th>Időpont<br><input class="form-control-sm" type="text" id="filterBorn" placeholder="KERESÉS" onkeyup="filterString('filterBorn',2)"><br></th-->
+                            <th class="text-center">Felvettük?<br><!--input class="form-control-sm" type="text" id="filterRoom" placeholder="KERESÉS" onkeyup="filterString('filterRoom',3)"--><br></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -24,8 +24,17 @@
                         <tr>
                             <td><a href="{{route('dashboard.student.oralexam.index', $student->id)}}" style="text-decoration: none;"><strong>{{$student->eduId}}</strong><br></a></td>
                             <td>{{$student->name}}</td>
-                            <td>@isset($student->meeting->datetime){{date("Y.m.d. H:i", strtotime($student->meeting->datetime))}}@endisset</td>
+                            <!--td>@isset($student->meeting->datetime){{date("Y.m.d. H:i", strtotime($student->meeting->datetime))}}@endisset</td-->
                             <td class="text-center">
+                                @isset($student->result->final)
+                                    @if($student->result->final == "0000")
+                                        <i class="text-danger">NEM</i>
+                                    @else
+                                        <strong class="text-success">{{$student->result->final}}</strong>
+                                    @endif
+                                @endisset
+                            </td>
+                            <!--td class="text-center">
                                 @if(isset($student->meeting->panel->room) && $student->meeting->panel->room!=NULL)
                                     {{$student->meeting->panel->room}}
                                 @elseif(isset($student->meeting->note))
@@ -33,7 +42,7 @@
                                 @else
                                     <i>nincs beosztva</i>
                                 @endif
-                            </td>
+                            </td-->
                         </tr>
                         @endforeach
                         </tbody>

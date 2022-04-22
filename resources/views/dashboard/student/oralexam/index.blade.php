@@ -55,6 +55,22 @@
                     </div>
                 </div>
                 @if(isset($student->result))
+                    @if($student->result->final != NULL)
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="text-primary fw-bold m-0">Egyeztetett felvételi rangsor</h6>
+                            </div>
+                            <div class="card-body">
+                                @if ($student->result->final == "0000")
+                                    <p class="text-center text-uppercase card-text"><strong class="text-danger">Nem nyert felvételt</strong></p>
+                                @elseif ($student->result->final == "0023")
+                                    <p class="text-center text-uppercase card-text"><strong class="text-success">Felvételt nyert</strong> a 0023 tanulmányi területre</p>
+                                @elseif ($student->result->final == "0025")
+                                    <p class="text-center text-uppercase card-text"><strong class="text-success">Felvételt nyert</strong> a 0025 tanulmányi területre</p>
+                                @endif
+                            </div>
+                        </div>
+                    @else
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <h6 class="text-primary fw-bold m-0">Előzetes felvételi rangsor</h6>
@@ -98,6 +114,7 @@
                             @endif
                         </div>
                     </div>
+                    @endif
                 @endif
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">

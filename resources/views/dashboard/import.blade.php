@@ -22,6 +22,7 @@
                         <div class="form-row">
                             <div class="col-xl-4"><select class="custom-select d-inline" name="importType">
                                     <optgroup label="BLÁTHY">
+                                        <option value="FinalResultsImport">Végleges rangsor</option>
                                         <option value="ResultsImport">Előzetes rangsor</option>
                                         <option value="CentralExamTapaScheduleTable">Írásbeli beosztás (TAPA)</option>
                                         <option value="OralExamTapaSchedule">Szóbeli beosztás (TAPA)</option>
